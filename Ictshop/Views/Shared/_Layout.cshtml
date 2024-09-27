@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="~/HinhanhSP/P1.png" />
+          @Styles.Render("~/Content/css")
+          @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <link rel=" stylesheet" href="~/Content/Style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    @using Ictshop.Models
+
+    <style type="text/css">
+        body {
+            background-color: #F0F0F0;
+        }
+
+        .navbar-inverse {
+            background-color: #D70018;
+            border-color: #D70018;
+        }
+
+        .top_header {
+            padding-left: 110px;
+            color: white;
+        }
+
+        .form-inlinee {
+            float: right;
+            padding-top: 10px;
+            width: 300px;
+        }
+
+        .navbar-inverse .navbar-nav > li > a {
+            color: white;
+            font-size: x-large;
+        }
+
+        .navbar-inverse .navbar-brand {
+            color: white;
+        }
+
+        .navbar-inverse .navbar-nav > li > a {
+            color: white;
+            font-size: large;
+        }
+
+            .navbar-inverse .navbar-nav > li > a:hover {
+                color: black;
+                opacity: 0.5;
+            }
+
+
+        .navbar-brand {
+            color: cadetblue;
+        }
+
+
+
+        .spnoibat h3 {
+            padding-left: 0px;
+            padding-top: 0px;
+        }
+
+
+        .giohang {
+            color: white;
+        }
+
+        .form-control {
+            border-radius: 10px;
+        }
+
+        h2 {
+            font-weight: 200;
+            font-size: 18px;
+        }
+
+        span {
+            font-size: 15px;
+        }
+
+        .container {
+            font-size: 12px;
+        }
+
+        .navbar-nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+            .navbar-nav li {
+                flex-grow: 1;
+                text-align: center;
+            }
+
+        .btn-user a:active {
+            text-decoration: none;
+        }
+
+        .log-out {
+            color: white;
+            font-size: 12px;
+            margin-top: 5px
+        }
+
+        .log-in {
+            margin-top: 5px;
+            color: white;
+        }
+
+            .log-in:hover {
+                color: #380404;
+                opacity: 0.3;
+            }
+
+            .log-in a {
+                text-decoration: none;
+            }
+
+        .bx bx-log-out {
+            color: #333;
+            opacity: 0.8;
+        }
+            
+    </style>
+
+
+
+</head>
+
+<body>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    @{ var u = Session["use"] as Ictshop.Models.Nguoidung; }
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="top_header col-md-12">
+        </div>
+        <div class="container">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*<img class="navbar-brand" src="~/HinhanhSP/logo1.jpg" width="50" height="50" style="padding:0" />*@
+                @Html.ActionLink("PhoneStore", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">
+                            <span>Danh Mục</span>
+                        </a>
+                    </li>
+                    <li>
+                        <form class="form-inlinee" style="float:left;margin-bottom:10px;">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm sản phẩm..." aria-label="Search">
+                        </form>
+                    </li>
+                    <li>
+                        <a href="/Home/Contact" title="LIENHE">
+                            <div class="icon">
+                                <i class='bx bx-phone' style="font-size:20px;"></i>
+                                <span>Liên Hệ</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class='bx bx-map'></i>
+                            <span>Địa chỉ cửa hàng</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a style="color:white"
+                           class="nav-link"
+                           href="@Url.Action("Index", "DonHangs")">ĐƠN HÀNG</a>
+                    </li>
+                    <li> @Html.Action("GioHangPartial", "GioHang", new { @class = "giohang" })</li>
+                    <li style="right:-25px;">
+                        @{
+                            if (u != null)
+                            {
+                                <div class="log-out">
+                                    @u.Hoten
+                                    <a href="/User/DangXuat">  <i style="font-size: 13px;color:white " class='bx bx-log-out'></i></a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="log-in">
+                                    <a style="color:white;" href="/User/Dangnhap"><span>Đăng nhập</span><i style="font-size:18px;" class='bx bx-user-circle bx-flip-horizontal'></i></a>
+                                </div>
+                            }
+                        }
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    
+
+    <br>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <div>
+            <img class="img-responsive" src="~/HinhanhSP/ban2.jpg" />
+        </div>
+        <br />
+    </div>
+    <footer class="bg-info" style="padding-left:50px ;">
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <h2>Tổng đài hỗ trợ miễn phí</h2>
+                <span>Gọi mua hàng 1800.2097 (7h30 - 22h00) </span>
+                <br />
+                <span>Gọi khiếu nại 1800.2063 (8h00 - 21h30)</span>
+                <br />
+                <span>Gọi bảo hành 1800.2064 (8h00 - 21h00)</span>
+
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <h2>Dịch vụ khác</h2>
+                <span>Khách hàng doanh nghiệp (B2B)</span>
+                <br />
+                <span>Ưu đãi thanh toán</span>
+                <br />
+                <span>Quy chế hoạt động</span>
+                <br />
+                <span>Chính sách Bảo hành</span>
+                <br />
+                <span>Liên hệ hợp tác kinh doanh</span>
+                <br />
+                <span>Dịch vụ bảo hành điện thoại</span>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <h2>Thông tin chính sách</h2>
+                <span>Mua hàng và thanh toán Online</span>
+                <br />
+                <span>Mua hàng tra gốp Online</span>
+                <br />
+                <span>Chính sách giao hàng</span>
+                <br />
+                <span>Tra điểm Smember</span>
+                <br />
+                <span>Tra cứu thông tin bảo hành</span>
+                <br />
+                <span>Tra cứu hóa đơn điện tử</span>
+            </div>
+            <div class="col-md-3 col-sm-6">
+
+                <h2>Theo dõi</h2>
+                <span>Instagram <a class="social-icon"> <i class="fab fa-instagram"></i> </a> </span>
+                <br />
+                <span>Facebook <a class="social-icon"> <i class="fab fa-facebook-f"></i> </a> </span>
+                <br />
+                <span>Youtube <a class="social-icon"><i class="fab fa-youtube " style="color: #db3c14;"></i> </a> </span>
+                <br />
+                <span>Shope </span>
+                <br />
+                <span>Group</span>
+            </div>
+        </div>
+        <hr />
+        <center> <p class="bg-primary">&copy; @DateTime.Now.Year - PhoneStore</p></center>
+    </footer>
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

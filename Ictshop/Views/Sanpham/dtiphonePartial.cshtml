@@ -1,0 +1,56 @@
+﻿
+<div class="row">
+    <div    <h3 style="padding-left:20px;font-weight:bold;">iPhone</h3></div>
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 col-sm-6 ">
+            <a href="@Url.Action("xemchitiet", new {@Masp=item.Masp })">
+                <img src=@Url.Content("~    "+item.Anhbia) class="imgs-ip" alt="" />
+            </a>
+            <center>
+                <p class="Ten-ip">  @item.Tensp </p>
+                <p class="Mn"> @item.Giatien đ</p>
+                <br />
+                @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMasp = item.Masp, @strURL = Request.Url.ToString() }))
+                {
+                    <input class="btn-mh" type="submit" value="Mua Ngay" id="bgnGioHang" />
+                }
+                @*<h4> <a href="@Url.Action("dtiphonePartial", new {@Masp=item.Masp })">Xem chi tiết</a></h4>*@
+            </center>
+        </div>
+    }
+</div>
+<style>
+    .Mn {
+        color: red;
+        padding-left: -80px;
+        margin-left: -80px;
+        font-weight: bold;
+    }
+
+    .Ten-ip {
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .imgs-ip {
+        width: 245px;
+        height: 255px;
+        border-radius: 20px;
+        margin-top: 20px;
+        box-shadow: 0.4rem 0.4rem 0.7rem rgb(194 180 180);
+    }
+
+    .btn-mh {
+        width: 200px;
+        color: white;
+        background-color: #D70018;
+        border-radius: 25px;
+        border-color: #D70018;
+        margin-bottom: 20px;
+        padding-left: -60px;
+        margin-left: -60px;
+        box-shadow: 0.2rem 0.2rem 0.2rem rgb(188 27 27);
+    }
+</style>
+

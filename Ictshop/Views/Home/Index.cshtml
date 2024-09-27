@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "ICT SHOP";
+
+}
+
+@*@Html.Action("SlidePartial", "Home")*@
+<style>
+    .img-responsives {
+        height: 110px;
+        width: 360px;
+        border-radius: 10px
+    }
+
+    .img-responsivess {
+        height: 170px;
+        width: 360px;
+        border-radius: 10px;
+        box-shadow: 0.4rem 0.4rem 0.6rem rgb(180 169 169);
+    }
+
+    #text {
+        font-weight: bold;
+        font-size: 20px;
+    }
+</style>
+<br />
+
+<div class="row" style="margin-bottom: 10px;">
+    <div class="col-md-4">
+        <img src="~/HinhanhSP/Qc3.jpg" class="img-responsives" alt="" />
+    </div>
+    <div class="col-md-4">
+        <img src="~/HinhanhSP/QC12.jpg" class="img-responsives" alt="" />
+    </div>
+    <div class="col-md-4">
+        <img src="~/HinhanhSP/QC11.jpg" class="img-responsives" alt="" />
+    </div>
+</div>
+<div>
+    <img class="img-responsive" src="~/HinhanhSP/ban1.jpg" />
+</div>
+<br />
+<div class="spnoibat">
+    <h3 id="text">Sản Phẩm Nổi Bật</h3>
+    <div class="row">
+        <div class="col-md-4">
+            <div>
+                <img src="~/HinhanhSP/QCip.jpg" class="img-responsivess" alt="" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <img src="~/HinhanhSP/Qc.jpg" class="img-responsivess" alt="" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <img src="~/HinhanhSP/spnb3.jpg" class="img-responsivess" alt="" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="danhmuc">
+    @Html.Action("DanhmucPartial", "Danhmuc")
+</div>
+<div class="dt">
+
+    @Html.Action("dtiphonePartial", "Sanpham")
+</div>
+<div class="dt">
+
+    @Html.Action("dtsamsungpartial", "Sanpham")
+</div>
+
+<div class="dt">
+
+    @Html.Action("dtxiaomipartial", "Sanpham")
+</div>
+
+<div class="row">
+    <h2> Tin tức sản phẩm</h2>
+    <div class="col-md-8">
+        Video
+    </div>
+    <div class="col-md-4">
+        Tin tức
+    </div>
+</div>
+

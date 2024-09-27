@@ -1,0 +1,59 @@
+﻿
+<div class="row">
+    <div class=" bg-danger"><h3 style="padding-left:20px;font-weight:bold;"> XIAOMI </h3></div>
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 col-sm-6">
+            <a href="@Url.Action("xemchitiet", new {@Masp=item.Masp })">
+                <img src=@Url.Content("~"+item.Anhbia) class="imgs-spxm" alt="" />
+            </a>
+            <center>
+                <h3 class="Ten-xm"> @item.Tensp </h3>
+                <h3 class="Xm"> @item.Giatien đ</h3>
+                <br />
+                @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMasp = item.Masp, @strURL = Request.Url.ToString() }))
+                {
+                    <input class="btn-mh" type="submit" value="Mua hàng" id="bgnGioHang" />
+
+                }
+
+                @*<h4> <a href="@Url.Action("xemchitiet", new {@Masp=item.Masp })">Xem chi tiết</a></h4>*@
+
+
+            </center>
+
+        </div>
+    }
+    <style>
+        .Xm {
+            color: red;
+            text-align: center;
+        }
+
+        .Ten-xm {
+            text-align: left;
+        }
+
+        h3 {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .imgs-spxm {
+            width: 230px;
+            height: 250px;
+            border-radius: 20px;
+        }
+
+        .btn-mh {
+            color: white;
+            background-color: #D70018;
+            border-radius: 25px;
+            border-color: #D70018;
+            margin-bottom: 20px;
+        }
+    </style>
+
+</div>
+
+
