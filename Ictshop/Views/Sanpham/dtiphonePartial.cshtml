@@ -1,35 +1,45 @@
 ﻿
 <div class="row">
-    <div    <h3 style="padding-left:20px;font-weight:bold;">iPhone</h3></div>
+    <div>   <h2 style="padding-left:20px;font-weight:bold;">iPhone</h2></div>
     @foreach (var item in Model)
     {
         <div class="col-md-3 col-sm-6 ">
+            <div class="formsp">
             <a href="@Url.Action("xemchitiet", new {@Masp=item.Masp })">
-                <img src=@Url.Content("~    "+item.Anhbia) class="imgs-ip" alt="" />
+                    <img src=@Url.Content("~"+item.Anhbia) class="imgs-ip" alt="" />
             </a>
-            <center>
-                <p class="Ten-ip">  @item.Tensp </p>
-                <p class="Mn"> @item.Giatien đ</p>
+                <p>
+                    <h3 class="Ten-ip">  @item.Tensp </h3>
+                    <p  class="Mn"> @item.Giatien.ToString("N0") VNĐ</p>
                 <br />
-                @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMasp = item.Masp, @strURL = Request.Url.ToString() }))
-                {
-                    <input class="btn-mh" type="submit" value="Mua Ngay" id="bgnGioHang" />
-                }
-                @*<h4> <a href="@Url.Action("dtiphonePartial", new {@Masp=item.Masp })">Xem chi tiết</a></h4>*@
-            </center>
+                </p>
+        </div>
+           
         </div>
     }
 </div>
 <style>
+    .formsp {
+        height:350px;
+        margin-top: 20px;
+        background-color: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0.4rem 0.4rem 0.7rem rgb(194 180 180);
+    }
     .Mn {
+        padding-top:10px;
+        text-align:center;
         color: red;
         padding-left: -80px;
         margin-left: -80px;
         font-weight: bold;
+        font-size:15px;
+       
     }
 
     .Ten-ip {
-        text-align: left;
+        padding-top: 10px;
+        text-align: center;
         font-weight: bold;
     }
 
