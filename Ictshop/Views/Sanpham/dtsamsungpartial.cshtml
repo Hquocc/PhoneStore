@@ -1,29 +1,19 @@
 ﻿
-@using Ictshop.Models;
-@model List<Sanpham>
 <div class="row">
 
-    <div class=" bg-danger"><h3 style="padding-left:20px"> SAMSUNG </h3></div>
+    <div ><h2 style="padding-left: 20px; font-weight: bold;"> SAMSUNG </h2></div>
     @foreach (var item in Model)
     {
         <div class="col-md-3 col-sm-6">
-
-            <a href="@Url.Action("xemchitiet", new { @Masp = item.Masp })">
-                <img src=@Url.Content("~" + item.Anhbia) class="imgs-spss" alt="" />
-            </a>
-            <center>
-                <h3 class="Name"> <b> @item.Tensp </b></h3>
-                <h3 class="Mn"> <b>@item.Giatien đ</b></h3>
-                <br />
-                @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMasp = item.Masp, @strURL = Request.Url.ToString() }))
-                {
-                    <input class="btn-mh" type="submit" value="Mua Ngay" id="bgnGioHang" />
-                }
-
-                @*<h4> <a href="@Url.Action("xemchitiet", new {@Masp=item.Masp })">Xem chi tiết</a></h4>*@
-
-
-            </center>
+            <div class="formspss">
+                <a href="@Url.Action("xemchitiet", new { @Masp=item.Masp })">
+                    <img src=@Url.Content("~" + item.Anhbia) class="imgs-spss" alt="" />
+                </a>
+                <center>
+                    <h3 class="Name"> <b> @item.Tensp </b></h3>
+                    <p class="Mn"> @item.Giatien.ToString("N0") VNĐ</p>
+                </center>
+            </div>      
 
         </div>
     }
@@ -31,9 +21,17 @@
 
 </div>
 <style>
+    .formspss{
+      height: 350px;
+      margin-top: 20px;
+      background-color: #ffffff;
+       border-radius: 20px;
+       box-shadow: 0.4rem 0.4rem 0.7rem rgb(194 180 180);
+    }
     .Name {
-        text-align: left;
-        font-weight: bold;
+         padding-top: 10px;
+   text-align: center;
+   font-weight: bold;
     }
 
     h3 {
@@ -41,30 +39,18 @@
     }
 
     .imgs-spss {
-        width: 210px;
-        height: 230px;
-        border-radius: 20px;
-        margin-top: 20px;
-        box-shadow: 0.4rem 0.4rem 0.7rem rgb(194 180 180);
+         padding-top: 30px;
+  margin-left: 30px;
+  display: block;
+  width: 200px;
+  height: 230px;
     }
-
-    .btn-mh {
-        color: white;
-        background-color: #D70018;
-        border-radius: 15px;
-        border-color: #D70018;
-        margin-bottom: 20px;
-        padding-left: -60px;
-        margin-left: -60px;
-        box-shadow: 0.2rem 0.2rem 0.2rem rgb(188 27 27);
-    }
-
     .Mn {
-        color: red;
-        text-align: center;
-        padding-left: -80px;
-        margin-left: -80px;
-        font-weight: bold;
+        padding-top: 10px;
+text-align: center;
+color: red;
+ font-weight: bold;
+ font-size: 15px;
     }
 </style>
 

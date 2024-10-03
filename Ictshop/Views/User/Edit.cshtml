@@ -13,7 +13,7 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h2>Chỉnh sửa hồ sơ cá nhân</h2>
+    <h2 style="font-weight: bold;">Chỉnh sửa hồ sơ cá nhân</h2>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.MaNguoiDung)

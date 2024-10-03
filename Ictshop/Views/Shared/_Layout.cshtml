@@ -180,19 +180,18 @@
                         </a>
                     </li>
                     <li>
-                        <a style="color:white"
-                           class="nav-link"
-                           href="@Url.Action("Index", "DonHangs")">ĐƠN HÀNG</a>
+                        <a style="color:white ; font-size:15px" class="nav-link" href="@Url.Action("Index", "DonHangs")">Đơn Hàng</a>
                     </li>
-                    <li> @Html.Action("GioHangPartial", "GioHang", new { @class = "giohang" })</li>
-                    <li style="right:-25px;">
+                    <li > @Html.Action("GioHangPartial", "GioHang", new { @class = "giohang" })</li>
+                    <li style="right:-20px;">
                         @{
                             if (u != null)
                             {
-                                <div class="log-out">
-                                    @u.Hoten
-                                    <a href="/User/DangXuat">  <i style="font-size: 13px;color:white " class='bx bx-log-out'></i></a>
-                                </div>
+                                                <div class="log-out">
+                                                   <a style="color:white; font-size:15px " href="@Url.Action("Profile", "User", new { id = u.MaNguoiDung  })">@u.Hoten</a>
+                                             
+                                                    <a href="/User/DangXuat">  <i style="font-size: 13px;color:white " class='bx bx-log-out'></i></a>
+                                                </div>
                             }
                             else
                             {

@@ -14,16 +14,25 @@
         <img class="img-sp" src="@Url.Content("~" + @Model.Anhbia)" />
         <br />
         <h3> <b>@Model.Tensp</b></h3>
-        <h3 style="color:red"> <b> @Model.Giatien đ</b></h3>
+        <h3 style="color:red">
+            <b>@(Model.Giatien.HasValue ? Model.Giatien.Value.ToString("N0") + " VNĐ" : "Chưa có giá")</b>
+        </h3></h3>
         <br />
         <div style="font-size:16px;"><b>Tính Năng Nổi Bật</b> <br /> @Model.Mota </div>
         <br />
         @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMasp = Model.Masp, @strURL = Request.Url.ToString() }))
         {
-            <input class="btn-mh" type="submit" value="Mua Ngay" id="bgnGioHang" />
+            <input class="btn-mh" type="submit" value="Thêm vào giỏ hàng" id="bgnGioHang" />
 
         }
+        <div colspan="6">
+            @using (Html.BeginForm("ThanhToanDonHang", "GioHang", new { @class = "" }))
+            {
+                <input type="submit" value="Đặt hàng" class="btnMuaHang" />
+            }
+            </>
 
+        </div>
     </div>
 </CENTER>
 <style>
@@ -36,11 +45,22 @@
     }
 
     .btn-mh {
+        width:400px;
         color: white;
         background-color: #D70018;
-        border-radius: 15px;
+        border-radius: 5px;
         border-color: #D70018;
-        font-size: 20px;
+        font-size: 18px;
         margin-bottom: 20px;
+    }
+    .btnMuaHang {
+        width: 400px;
+        color: white;
+        background-color: #D70018;
+        border-radius: 5px;
+        border-color: #D70018;
+        font-size: 18px;
+        margin-bottom: 20px;
+        text-align: center;
     }
 </style>
