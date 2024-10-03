@@ -7,7 +7,9 @@
 
 <h2>Danh sách đơn hàng</h2>
 
-
+<p>
+    @Html.ActionLink("Thêm đơn hàng", "Create")
+</p>
 <table class="table">
     <tr>
         <th>
@@ -27,7 +29,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Diachinhanhang)
         </th>
-        <th></th>
+        <th> Hành động</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -61,15 +63,16 @@
         @Html.DisplayFor(modelItem => item.Diachinhanhang)
     </td>
     <td>
-        @*<button class="btn btn-success">
-            @Html.ActionLink("Xác nhận", "Edit", new { id = item.Madon }, new { @style = "color:white;" })
-        </button>*@
+        <button class="btn btn-success">
+            @Html.ActionLink("Cập nhật", "Edit", new { id = item.Madon }, new { @style = "color:white;" })
+        </button>
         <button class="btn btn-primary">
             @Html.ActionLink("Chi tiết", "Details", new { id = item.Madon }, new { @style = "color:white;" })
         </button>
-        @*<button class="btn btn-danger">
+
+        <button class="btn btn-danger">
             @Html.ActionLink("Xóa", "Delete", new { id = item.Madon }, new { @style = "color:white;" })
-        </button>*@
+        </button>
     </td>
 </tr>
 }
