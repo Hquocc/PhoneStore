@@ -41,7 +41,31 @@ namespace Ictshop.Areas.Admin.Controllers
             return View(nguoidung);
         }
 
-      
+        // Tạo mới người dùng
+        // GET: Admin/Nguoidungs/Create
+        public ActionResult Create()
+        {
+            // Gửi danh sách các quyền để hiện thị trong DropdownList
+            ViewBag.IDQuyen = new SelectList(db.PhanQuyens, "IDQuyen", "TenQuyen");
+            return View();
+        }
+
+        // POST: Admin/Nguoidungs/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "MaNguoiDung,Hoten,Email,Dienthoai,Matkhau,IDQuyen, Anhdaidien, Diachi")] Nguoidung nguoidung)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Nguoidungs.Add(nguoidung);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.IDQuyen = new SelectList(db.PhanQuyens, "IDQuyen", "TenQuyen", nguoidung.IDQuyen);
+            return View(nguoidung);
+        }
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
