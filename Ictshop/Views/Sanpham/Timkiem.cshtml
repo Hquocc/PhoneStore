@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Ictshop.Models.Sanpham>
+
+@if (Model.Any())
+{
+    <p class="search-results">
+        @foreach (var item in Model)
+        {
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+
+            <h5 style="color:black;">
+                <a href="@Url.Action("xemchitiet", "Sanpham", new { Masp = item.Masp })" style="color:black;">@item.Tensp</a>
+            </h5>
+            <img src="@item.Anhbia" alt="@item.Tensp" style="width: 35px; height: 35px; margin-right: 0px;padding-left:5px;" />
+        </div>
+        }
+    </p>
+}
+else
+{
+    <h5 style="color:black;">Không tìm thấy</h5>
+}

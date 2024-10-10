@@ -17,6 +17,7 @@ namespace Ictshop.Controllers
             var ip = db.Sanphams.Where(n=>n.Mahang==2).Take(8).ToList();
            return PartialView(ip);
         }
+      
         public ActionResult dtsamsungpartial()
         {
             var ss = db.Sanphams.Where(n => n.Mahang == 1).Take(12).ToList();
@@ -42,6 +43,20 @@ namespace Ictshop.Controllers
             }
             return View(chitiet);
         }
+        public ActionResult Timkiem(string keyword)
+        {
+            // Kiểm tra nếu từ khóa rỗng hoặc null
+            if (string.IsNullOrEmpty(keyword))
+            {
+                return PartialView(new List<Sanpham>()); // Trả về danh sách rỗng nếu không có từ khóa
+            }
+
+            // Tìm kiếm sản phẩm theo từ khóa (so sánh với tên sản phẩm)
+            var products = db.Sanphams.Where(sp => sp.Tensp.Contains(keyword)).Take(10).ToList();
+
+            return PartialView(products);
+        }
+
 
     }
 
