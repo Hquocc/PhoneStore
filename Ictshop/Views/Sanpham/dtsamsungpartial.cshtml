@@ -11,7 +11,8 @@
                 </a>
                 <center>
                     <h3 class="Name"> <b> @item.Tensp </b></h3>
-                    <p class="Mn"> @item.Giatien.ToString("N0") VNĐ</p>
+                    <p class="Mn"> @(item.Giatien?.ToString("N0") ?? "0") VNĐ</p>
+
                 </center>
             </div>      
 
