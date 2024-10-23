@@ -128,6 +128,7 @@
             color: #333;
             opacity: 0.8;
         }
+
         #searchResult {
             margin-top: 10px;
             position: absolute;
@@ -141,8 +142,27 @@
             border-radius: 10px;
         }
 
-    
-    
+        #brandList {
+            margin-top: 10px;
+            position: absolute;
+            background-color: white;
+            z-index: 1000;
+            width: 150px;
+            border: 1px solid #ccc;
+            display: none;
+            text-align: left;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+            #brandList div {
+                padding: 5px 10px;
+                cursor: pointer;
+            }
+
+                #brandList div:hover {
+                    background-color: #f0f0f0;
+                }
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -170,7 +190,31 @@
 });
 
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        $('#categoryLink').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '@Url.Action("DanhmucPartial", "Danhmuc")',
+                type: 'GET',
+                success: function (data) {
+                    $('#brandList').html(data);
+                    $('#brandList').toggle();
+                }
+            });
+        });
 
+        $('#brandList').mouseenter(function () {
+            $(this).show();
+        }).mouseleave(function () {
+            $(this).hide();
+        });
+    });
+    </script>
+
+  
 </head>
 
 <body>
@@ -193,14 +237,14 @@
 
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">
-                            <span>Danh Mục</span>
-                        </a>
+                        <a href="#" id="categoryLink">Danh mục</a>
+                        <div id="brandList" style="display:none;"></div>
                     </li>
+
                     <li>
                         <form class="form-inline" style="float:left" id="searchForm">
                             <input style="width:500px;" class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Tìm kiếm sản phẩm..." aria-label="Search">
-                        
+
                             <div id="searchResult"></div>
                         </form>
                     </li>
@@ -232,7 +276,7 @@
 
                                     <a href="/User/DangXuat">  <i style="font-size: 13px;color:white " class='bx bx-log-out'></i></a>
                                 </div>
-                            }   
+                            }
                             else
                             {
                                 <div class="log-in">

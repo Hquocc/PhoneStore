@@ -16,5 +16,6 @@ namespace Ictshop.Controllers
             var danhmuc = db.Hangsanxuats.ToList();
             return PartialView(danhmuc);
         }
+   
     }
 }
