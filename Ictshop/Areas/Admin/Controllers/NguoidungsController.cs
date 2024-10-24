@@ -25,19 +25,16 @@ namespace Ictshop.Areas.Admin.Controllers
         //Xem chi tiết người dùng theo Mã người dùng
         // GET: Admin/Nguoidungs/Details/5
         public ActionResult Details(int? id)
-        {
-            // Nếu không có người dùng có mã được truyền vào thì trả về trang báo lỗi
+        {         
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            // Khai báo một người dùng theo mã
-            Nguoidung nguoidung = db.Nguoidungs.Find(id);
+            }          
+           Nguoidung nguoidung = db.Nguoidungs.Find(id);
             if (nguoidung == null)
             {
                 return HttpNotFound();
-            }
-            // trả về trang chi tiết người dùng
+            }            
             return View(nguoidung);
         }
 
@@ -45,7 +42,7 @@ namespace Ictshop.Areas.Admin.Controllers
         // GET: Admin/Nguoidungs/Create
         public ActionResult Create()
         {
-            // Gửi danh sách các quyền để hiện thị trong DropdownList
+            
             ViewBag.IDQuyen = new SelectList(db.PhanQuyens, "IDQuyen", "TenQuyen");
             return View();
         }

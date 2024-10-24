@@ -84,14 +84,17 @@
     </div>
 
 
+
     <div class="form-group">
         @Html.LabelFor(model => model.Anhbia, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Anhbia, new { htmlAttributes = new { @class = "form-control" } })
-            <button id="chonDuongDanAnh" type="button" class="btn btn-info"><i class="fas fa-image font-size-20"></i>Upload file</button>
+            <button id="chonDuongDanAnh" type="button" class="btn btn-info"><i class="fas fa-image font-size-20"></i> Upload file</button>
+            <input type="file" id="fileInput" style="display: none;" /> 
             @Html.ValidationMessageFor(model => model.Anhbia, "", new { @class = "text-danger" })
         </div>
     </div>
+
     <div class="form-group">
         @Html.LabelFor(model => model.Mahang, "Chọn hãng", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -116,19 +119,14 @@
 </div>}
 
 
-<script language="javascrip" type="text/javascript">
-    $(function () {
+<script>
+    $(document).ready(function () {
         $("#chonDuongDanAnh").click(function () {
-            var ckfiner = new CKFinder();
-            ckfiner.selectActionFunction = function (fileUrl) {
-                $("#Anhbia").val(fileUrl);
-            };
-            ckfiner.popup();
-        })
+            $("#fileInput").click();
+        });
+        $("#fileInput").change(function () {
+            var fileName = $(this).val().split("\\").pop(); 
+            $("#Anhbia").val(fileName); 
+        });
     });
-    var ckeditor;
-    function createEditor(languageCode, id) {
-        var editor = CKEDITOR.replace(id, { language: languageCode });
-    }
-    $(function () { createEditor('vi', 'Mo') });
 </script>

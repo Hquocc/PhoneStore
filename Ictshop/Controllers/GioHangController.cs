@@ -100,7 +100,7 @@ namespace Ictshop.Controllers
             return RedirectToAction("GioHang");
         }
         //Xây dựng trang giỏ hàng
-        // Xây dựng trang giỏ hàng
+     
         public ActionResult GioHang()
         {
             // Kiểm tra nếu giỏ hàng trống

@@ -86,7 +86,7 @@
         <div class="col-md-10">
             @Html.EditorFor(model => model.Anhbia, new { htmlAttributes = new { @class = "form-control" } })
             <button id="chonDuongDanAnh" type="button" class="btn btn-info"><i class="fas fa-image font-size-20"></i> Upload file</button>
-            <input type="file" id="fileInput" style="display: none;" /> <!-- Input file ẩn -->
+            <input type="file" id="fileInput" style="display: none;" />
             @Html.ValidationMessageFor(model => model.Anhbia, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -116,15 +116,12 @@
 </div>}
 <script>
     $(document).ready(function () {
-        // Mở file explorer khi nhấn nút "Upload file"
         $("#chonDuongDanAnh").click(function () {
             $("#fileInput").click();
         });
-
-        // Khi file được chọn, hiển thị đường dẫn file
         $("#fileInput").change(function () {
-            var fileName = $(this).val().split("\\").pop(); // Lấy tên file từ đường dẫn
-            $("#Anhbia").val(fileName); // Hiển thị tên file trong input text
+            var fileName = $(this).val().split("\\").pop(); 
+            $("#Anhbia").val(fileName); 
         });
     });
 </script>
