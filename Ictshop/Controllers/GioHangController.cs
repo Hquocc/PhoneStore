@@ -100,15 +100,22 @@ namespace Ictshop.Controllers
             return RedirectToAction("GioHang");
         }
         //Xây dựng trang giỏ hàng
+        // Xây dựng trang giỏ hàng
         public ActionResult GioHang()
         {
-            if (Session["GioHang"] == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            // Kiểm tra nếu giỏ hàng trống
             List<GioHang> lstGioHang = LayGioHang();
+            if (lstGioHang == null || lstGioHang.Count == 0)
+            {
+                // Thêm thông báo giỏ hàng trống
+                ViewBag.Message = "Giỏ hàng của bạn hiện đang trống. Vui lòng thêm sản phẩm vào giỏ hàng!";
+                return View();
+            }
+
+            // Nếu giỏ hàng có sản phẩm, hiển thị danh sách giỏ hàng
             return View(lstGioHang);
         }
+
         //Tính tổng số lượng và tổng tiền
         //Tính tổng số lượng
         private int TongSoLuong()
