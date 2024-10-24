@@ -51,6 +51,17 @@ namespace Ictshop.Controllers
 
             return PartialView(products);
         }
+        public ActionResult SanphamTheoHang(int Mahang = 0)
+        {
+            var sanpham = db.Sanphams.Where(sp => sp.Mahang == Mahang).ToList();
+            if (sanpham == null || sanpham.Count == 0)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            ViewBag.TenHang = db.Hangsanxuats.SingleOrDefault(h => h.Mahang == Mahang)?.Tenhang;
+            return View(sanpham);
+        }
 
 
     }

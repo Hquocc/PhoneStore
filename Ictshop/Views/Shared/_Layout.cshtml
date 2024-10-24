@@ -141,9 +141,18 @@
             padding-left: 10px;
             border-radius: 10px;
         }
+            #searchResult div {
+                padding: 5px 10px;
+                cursor: pointer
+            }
+                #searchResult div:hover {
+                    background-color: #f0f0f0;
+                    border-radius: 5px; 
+                    margin-right:10px;
+                }
 
         #brandList {
-            margin-top: 10px;
+            margin-top: 5px;
             position: absolute;
             background-color: white;
             z-index: 1000;
@@ -155,13 +164,13 @@
             border-radius: 10px;
         }
 
-            #brandList div {
-                padding: 5px 10px;
+            #brandList div {             
                 cursor: pointer;
             }
 
                 #brandList div:hover {
                     background-color: #f0f0f0;
+                    border-radius:5px;                      
                 }
     </style>
 
@@ -184,34 +193,44 @@
                 }
             });
         } else {
-            $('#searchResult').hide(); // Ẩn kết quả nếu không có từ khóa
+            $('#searchResult').hide(); 
         }
+
     });
+       $('#brandList').mouseleave(function () {
+           $(this).hide();
+       });
 });
 
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    $(document).ready(function () {
-        $('#categoryLink').click(function (e) {
-            e.preventDefault();
-            $.ajax({
-                url: '@Url.Action("DanhmucPartial", "Danhmuc")',
-                type: 'GET',
-                success: function (data) {
-                    $('#brandList').html(data);
-                    $('#brandList').toggle();
-                }
-            });
-        });
-
-        $('#brandList').mouseenter(function () {
-            $(this).show();
-        }).mouseleave(function () {
-            $(this).hide();
+$(document).ready(function () {
+    $('#categoryLink').click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: '@Url.Action("DanhmucPartial", "Danhmuc")',
+            type: 'GET',
+            success: function (data) {
+                $('#brandList').html(data);
+                $('#brandList').toggle();
+            }
         });
     });
+
+    // Khi bấm vào hãng sản xuất
+    $(document).on('click', '.brand-item a', function (e) {
+        window.location.href = $(this).attr('href'); // Chuyển trang theo href của link
+    });
+
+    // Ẩn danh mục khi rời chuột khỏi thẻ div
+    $('#brandList').mouseleave(function () {
+        $(this).hide();
+    });
+});
+
+
     </script>
 
   

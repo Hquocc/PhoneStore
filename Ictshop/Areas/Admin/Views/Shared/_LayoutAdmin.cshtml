@@ -21,12 +21,15 @@
             color: white;
             padding-left: 20px;
         }
+        .bg-successs {
+            background-color: #D70018;
+        }
     </style>
 </head>
 <body class="sb-nav-fixed">
     @{ var u = Session["use"] as Ictshop.Models.Nguoidung; }
 
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-success">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-successs">
         <h3>@Html.ActionLink("PhoneStore", "Index", "Home", new { @class = "menu1" })</h3>
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
             <i class="fas fa-bars"></i>

@@ -1,11 +1,12 @@
 ﻿
 <div class="row">
-
-    <div ><h2 style="padding-left: 20px; font-weight: bold;"> SAMSUNG </h2></div>
     @foreach (var item in Model)
     {
         <div class="col-md-3 col-sm-6">
             <div class="formspss">
+                <p class="tg" style="margin-top:20px;margin-right:15px">
+                    Trả góp 0%
+                </p>
                 <a href="@Url.Action("xemchitiet", new { @Masp=item.Masp })">
                     <img src=@Url.Content("~" + item.Anhbia) class="imgs-spss" alt="" />
                 </a>
@@ -22,17 +23,23 @@
 
 </div>
 <style>
-    .formspss{
-      height: 350px;
-      margin-top: 20px;
-      background-color: #ffffff;
-       border-radius: 20px;
-       box-shadow: 0.4rem 0.4rem 0.7rem rgb(194 180 180);
+    .formspss {
+        height: 380px;
+        margin-top: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0.4rem 0.4rem 0.7rem rgb(194 180 180);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px;
     }
     .Name {
-         padding-top: 10px;
-   text-align: center;
-   font-weight: bold;
+        font-weight: bold;
+        text-align: left;
+        height: 40px;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     h3 {
@@ -40,18 +47,18 @@
     }
 
     .imgs-spss {
-         padding-top: 30px;
-  margin-left: 30px;
-  display: block;
-  width: 200px;
-  height: 230px;
+        margin: 0 auto;
+        display: block;
+        width: 200px;
+        height: 220px;
+        padding-top: 20px;
     }
     .Mn {
-        padding-top: 10px;
-text-align: center;
-color: red;
- font-weight: bold;
- font-size: 15px;
+        color: red;
+        font-weight: bold;
+        font-size: 15px;
+        text-align: center;
+        margin-top: auto;
     }
 </style>
 
