@@ -22,7 +22,8 @@
         @Html.LabelFor(model => model.Anhdaidien, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Anhdaidien, new { htmlAttributes = new { @class = "form-control" } })
-            <button id="chonDuongDanAnh" type="button" class="btn btn-info"><i class="fas fa-image font-size-20"></i>Upload file</button>
+            <button id="chonDuongDanAnh" type="button" class="btn btn-info"><i class="fas fa-image font-size-20"></i> Upload file</button>
+            <input type="file" id="fileInput" style="display: none;" /> <!-- Input file ẩn -->
             @Html.ValidationMessageFor(model => model.Anhdaidien, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -58,15 +59,6 @@
             @Html.ValidationMessageFor(model => model.Matkhau, "", new { @class = "text-danger" })
         </div>
     </div>
-
-    @*<div class="form-group">
-            @Html.LabelFor(model => model.IDQuyen, "IDQuyen", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IDQuyen", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IDQuyen, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
     <div class="form-group">
         @Html.LabelFor(model => model.Diachi, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -88,21 +80,17 @@
         @Html.ActionLink("Back to List", "Index")
     </div>*@
 
-<script language="javascrip" type="text/javascript">
-    $(function () {
+<script>
+    $(document).ready(function () {
+        // Mở file explorer khi nhấn nút "Upload file"
         $("#chonDuongDanAnh").click(function () {
-            var ckfiner = new CKFinder();
-            ckfiner.selectActionFunction = function (fileUrl) {
-                $("#Anhdaidien").val(fileUrl);
-            };
-            ckfiner.popup();
-        })
+            $("#fileInput").click();
+        });
+
+        // Khi file được chọn, hiển thị đường dẫn file
+        $("#fileInput").change(function () {
+            var fileName = $(this).val().split("\\").pop(); // Lấy tên file từ đường dẫn
+            $("#Anhdaidien").val(fileName); // Hiển thị tên file trong input text
+        });
     });
-
-
-    var ckeditor;
-    function createEditor(languageCode, id) {
-        var editor = CKEDITOR.replace(id, { language: languageCode });
-    }
-    $(function () { createEditor('vi', 'Mo') });
 </script>
