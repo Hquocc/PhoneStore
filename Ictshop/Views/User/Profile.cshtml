@@ -5,66 +5,123 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 style="font-weight: bold;">HỒ SƠ CÁ NHÂN</h2>
+<h2 class="profile-title">HỒ SƠ CÁ NHÂN</h2>
 
-<div>
+<div class="profile-container">
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
+    <dl class="profile-details">
+        <dt class="profile-label">
             Ảnh đại diện
         </dt>
 
-        <dd>
-            <img src=@Url.Content("~" + @Html.DisplayFor(model => model.Anhdaidien)) class="img-responsive" alt="" width="200" height="200" />
-
+        <dd class="profile-info">
+            <img src="@Url.Content("/images/" + Model.Anhdaidien)" class="img-responsive profile-image" alt="" />
         </dd>
 
-
-        <dt>
+        <dt class="profile-label">
             @Html.DisplayNameFor(model => model.Hoten)
         </dt>
 
-        <dd>
+        <dd class="profile-info">
             @Html.DisplayFor(model => model.Hoten)
         </dd>
 
-        <dt>
+        <dt class="profile-label">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
 
-        <dd>
+        <dd class="profile-info">
             @Html.DisplayFor(model => model.Email)
         </dd>
 
-        <dt>
+        <dt class="profile-label">
             @Html.DisplayNameFor(model => model.Dienthoai)
         </dt>
 
-        <dd>
+        <dd class="profile-info">
             @Html.DisplayFor(model => model.Dienthoai)
         </dd>
 
-        <dt>
+        <dt class="profile-label">
             @Html.DisplayNameFor(model => model.Matkhau)
         </dt>
 
-        <dd>
+        <dd class="profile-info">
             @Html.DisplayFor(model => model.Matkhau)
         </dd>
 
-        <dt>
+        <dt class="profile-label">
             @Html.DisplayNameFor(model => model.Diachi)
         </dt>
 
-        <dd>
+        <dd class="profile-info">
             @Html.DisplayFor(model => model.Diachi)
         </dd>
-
     </dl>
 </div>
-<p>
+
+<p class="action-buttons">
     <button class="btn btn-primary">
         @Html.ActionLink("Chỉnh sửa hồ sơ", "Edit", new { id = Model.MaNguoiDung }, new { @style = "color:white;" })
     </button>
-    @*@Html.ActionLink("Back to List", "Index")*@
 </p>
+
+<style>
+    .profile-title {
+        font-weight: bold;
+        text-align: center;
+        color: #333;
+    }
+
+    .profile-container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-details {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 15px;
+        font-size: 16px;
+    }
+
+    .profile-label {
+        font-weight: bold;
+        color: #444;
+    }
+
+    .profile-info {
+        color: #555;
+        padding: 10px;
+    }
+
+    .profile-image {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+    }
+
+    .action-buttons {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .btn {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+        .btn:hover {
+            background-color: #0056b3;
+            transition: background-color 0.3s ease;
+        }
+</style>

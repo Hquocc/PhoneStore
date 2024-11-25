@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "SanphamPartial";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<Ictshop.Models.Sanpham>
+
+<div>
+    <h2 style="padding-left:20px;font-weight:bold;">Sản phẩm</h2>
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="col-md-3 col-sm-6">
+        <div class="formsp">
+            <a href="@Url.Action("xemchitiet", new { @Masp = item.Masp })">
+                <img src="@Url.Content("~" + item.Anhbia)" class="imgs-ip" alt="" />
+            </a>
+            <p>
+                <h3 class="Ten-ip">@item.Tensp</h3>
+            @*<p class="Mn">@item.Giatien.ToString("N0") VNĐ</p>*@
+            <br />
+        </div>
+    </div>
+}
+
+

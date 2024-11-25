@@ -1,23 +1,24 @@
-﻿
-<div class="row">
+﻿<div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-md-3 col-sm-6 ">
+        <div class="col-md-3 col-sm-6">
             <div class="formsp">
-            <p class="tg" style="margin-top:20px;margin-right:15px">
-                Trả góp 0%
-            </p>
-            <a href="@Url.Action("xemchitiet", new {@Masp=item.Masp })">
-                    <img src=@Url.Content("~"+item.Anhbia) class="imgs-ip" alt="" />
-            </a>
+                <p class="tg">
+                    Trả góp 0%
+                </p>
+                <a href="@Url.Action("xemchitiet", new {@Masp=item.Masp })">
+                    <img src="@Url.Content("~"+item.Anhbia)" class="imgs-ip" alt="" />
+                </a>
                 <p>
                     <h3 class="Ten-ip">  @item.Tensp </h3>
-                    <p  class="Mn"> @item.Giatien.ToString("N0") VNĐ</p>
-                <br />               
-             </div>
+                <p class="Mn"> @item.Giatien.ToString("N0") VNĐ</p>
+                <br />
+                </p>
+            </div>
         </div>
     }
 </div>
+
 <style>
     .formsp {
         height: 380px;
@@ -29,7 +30,14 @@
         flex-direction: column;
         justify-content: space-between;
         padding: 10px;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out; /* Thêm hiệu ứng cho toàn bộ formsp */
     }
+
+        .formsp:hover {
+            transform: scale(1.05); /* Khi rê chuột vào thẻ formsp, phóng to */
+        }
 
     .Mn {
         color: red;
@@ -53,64 +61,22 @@
         width: 200px;
         height: 220px;
         padding-top: 20px;
+        transition: transform 0.3s ease-in-out; /* Thêm hiệu ứng cho hình ảnh */
     }
 
     .tg {
-        background-attachment: scroll;
-        background-clip: border-box;
+        position: absolute; /* Đảm bảo tg ở vị trí tuyệt đối */
+        top: 10px; /* Khoảng cách từ trên */
+        right: 10px; /* Khoảng cách từ phải */
         background-color: rgb(255, 255, 255);
-        background-image: none;
-        background-origin: padding-box;
-        background-position-x: 0%;
-        background-position-y: 0%;
-        background-repeat: repeat;
-        background-size: auto;
-        border-bottom-color: rgb(12, 83, 183);
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-        border-bottom-style: solid;
-        border-bottom-width: 0.571429px;
-        border-image-outset: 0;
-        border-image-repeat: stretch;
-        border-image-slice: 100%;
-        border-image-source: none;
-        border-image-width: 1;
-        border-left-color: rgb(12, 83, 183);
-        border-left-style: solid;
-        border-left-width: 0.571429px;
-        border-right-color: rgb(12, 83, 183);
-        border-right-style: solid;
-        border-right-width: 0.571429px;
-        border-top-color: rgb(12, 83, 183);
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        border-top-style: solid;
-        border-top-width: 0.571429px;
-        box-sizing: content-box;
-        color: rgb(12, 83, 183);
-        display: block;
         font-family: Roboto, sans-serif;
-        font-size: 10px;
+        font-size: 12px;
         font-weight: 500;
-        height: 15px;
-        line-height: 15px;
-        list-style-image: none;
-        list-style-position: outside;
-        list-style-type: none;
-        padding-bottom: 2px;
-        padding-left: 5px;
-        padding-right: 5px;
-        padding-top: 2px;
-        position: absolute;
-        right: 0px;
-        text-rendering: optimizelegibility;
-        text-size-adjust: 100%;
-        top: 0px;
-        unicode-bidi: isolate;
-        width: 49.3661px;
-        -webkit-font-smoothing: antialiased;
+        color: rgb(12, 83, 183);
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid rgb(12, 83, 183);
+        box-sizing: content-box;
     }
-
-
 </style>
-
+    

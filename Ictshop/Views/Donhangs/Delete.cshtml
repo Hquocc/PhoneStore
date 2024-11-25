@@ -1,0 +1,99 @@
+﻿@model Ictshop.Models.Donhang
+@{
+    ViewBag.Title = "Xác nhận hủy đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+<div class="alert alert-danger">
+    @TempData["ErrorMessage"]
+</div>}
+
+@if (TempData["SuccessMessage"] != null)
+{
+<div class="alert alert-success">
+    @TempData["SuccessMessage"]
+</div>}
+
+<h2>Xác nhận hủy đơn hàng</h2>
+
+<div class="order-details">
+    <h3>Thông tin đơn hàng</h3>
+    <p><strong>Họ tên:</strong> @Model.Nguoidung.Hoten</p>
+    <p><strong>Ngày đặt:</strong> @Model.Ngaydat</p>
+    <p><strong>Địa chỉ nhận hàng:</strong> @Model.Diachinhanhang</p>
+
+    <p>
+        <strong>Tình trạng:</strong>
+        @if (Model.Tinhtrang == null)
+        {
+            <span class="badge bg-danger">Chưa xác nhận</span>
+        }
+        else if (Model.Tinhtrang == 1)
+        {
+            <span class="badge bg-success">Đã xác nhận</span>
+        }
+        else
+        {
+            <span class="badge bg-warning">Đang giao hàng</span>
+        }
+    </p>
+</div>
+
+<div class="confirmation-section">
+    <p class="alert alert-warning">Bạn có chắc chắn muốn hủy đơn hàng này không?</p>
+
+    <!-- Form xác nhận hủy đơn hàng -->
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <!-- Nút Xác nhận hủy -->
+        <button type="submit" class="btn btn-danger btn-lg">
+            Xác nhận hủy
+        </button>
+
+        <!-- Nút quay lại -->
+        <a href="@Url.Action("Index", "Home")" class="btn btn-secondary btn-lg">Quay lại</a>
+    }
+</div>
+
+<!-- Thêm CSS để làm đẹp giao diện -->
+<style>
+    .order-details {
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+        .order-details p {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+    .confirmation-section {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .alert-warning {
+        font-weight: bold;
+        padding: 10px;
+    }
+
+    .btn-lg {
+        padding: 12px 24px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .badge {
+        font-size: 14px;
+        padding: 5px 10px;
+        border-radius: 20px;
+    }
+</style>
+

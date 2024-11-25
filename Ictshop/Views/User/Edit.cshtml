@@ -2,95 +2,203 @@
 <script src="~/Content/ckeditor/ckeditor.js"></script>
 <script src="~/Content/ckfinder/ckfinder.js"></script>
 <script src="~/Scripts/jquery-3.4.1.slim.js"></script>
+
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h2 style="font-weight: bold;">Chỉnh sửa hồ sơ cá nhân</h2>
+<div class="form-container">
+    <h2 class="form-title">Chỉnh sửa hồ sơ cá nhân</h2>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.MaNguoiDung)
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Anhdaidien, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        @Html.LabelFor(model => model.Anhdaidien, htmlAttributes: new { @class = "control-label" })
+        <div class="form-input">
             @Html.EditorFor(model => model.Anhdaidien, new { htmlAttributes = new { @class = "form-control" } })
-            <button id="chonDuongDanAnh" type="button" class="btn btn-info"><i class="fas fa-image font-size-20"></i> Upload file</button>
-            <input type="file" id="fileInput" style="display: none;" /> <!-- Input file ẩn -->
+            <button id="chonDuongDanAnh" type="button" class="btn btn-info">
+                <i class="fas fa-image font-size-20"></i> Upload file
+            </button>
+            <input type="file" id="fileInput" style="display: none;" />
             @Html.ValidationMessageFor(model => model.Anhdaidien, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Hoten, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        @Html.LabelFor(model => model.Hoten, htmlAttributes: new { @class = "control-label" })
+        <div class="form-input">
             @Html.EditorFor(model => model.Hoten, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Hoten, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+        <div class="form-input">
             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Dienthoai, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        @Html.LabelFor(model => model.Dienthoai, htmlAttributes: new { @class = "control-label" })
+        <div class="form-input">
             @Html.EditorFor(model => model.Dienthoai, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Dienthoai, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Matkhau, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        @Html.LabelFor(model => model.Matkhau, htmlAttributes: new { @class = "control-label" })
+        <div class="form-input">
             @Html.EditorFor(model => model.Matkhau, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Matkhau, "", new { @class = "text-danger" })
         </div>
     </div>
+
     <div class="form-group">
-        @Html.LabelFor(model => model.Diachi, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        @Html.LabelFor(model => model.Diachi, htmlAttributes: new { @class = "control-label" })
+        <div class="form-input">
             @Html.EditorFor(model => model.Diachi, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Diachi, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
+        <div class="form-actions">
             <input type="submit" value="Lưu thông tin" class="btn btn-primary" />
+            <button type="button" class="btn btn-secondary" onclick="window.history.back();">
+                Quay lại
+            </button>
         </div>
     </div>
-    <h3 style="color:red">@ViewBag.show</h3>
+
+
+    <h3 class="error-message">@ViewBag.show</h3>
 </div>
 }
 
-@*<div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>*@
-
 <script>
     $(document).ready(function () {
-        // Mở file explorer khi nhấn nút "Upload file"
         $("#chonDuongDanAnh").click(function () {
             $("#fileInput").click();
         });
-
-        // Khi file được chọn, hiển thị đường dẫn file
         $("#fileInput").change(function () {
-            var fileName = $(this).val().split("\\").pop(); // Lấy tên file từ đường dẫn
-            $("#Anhdaidien").val(fileName); // Hiển thị tên file trong input text
+            var fileName = $(this).val().split("\\").pop(); 
+            $("#Anhdaidien").val(fileName); 
         });
     });
 </script>
+
+<style>
+    .form-container {
+        width: 70%;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: #f4f4f9;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-title {
+        font-weight: bold;
+        text-align: center;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    .control-label {
+        font-weight: bold;
+        color: #444;
+        width: 150px;
+    }
+
+    .form-input {
+        flex: 1;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    .form-actions {
+        text-align: center;
+    }
+
+    .btn-info {
+        margin-top: 10px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transition: background-color 0.3s ease;
+        }
+
+    .error-message {
+        color: red;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .text-danger {
+        font-size: 12px;
+    }
+    .form-actions .btn {
+        width: 200px;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        margin-left:100px;
+    }
+
+  
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        border: 1px solid #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transition: background-color 0.3s ease;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        border: 1px solid #6c757d;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            transition: background-color 0.3s ease;
+        }
+    .form-actions {
+        text-align: center;
+    }
+
+</style>

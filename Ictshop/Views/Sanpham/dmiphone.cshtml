@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "dmiphone";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div>   <h2 style="padding-left:20px;font-weight:bold;">iPhone</h2></div>
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 col-sm-6 ">
+            <div class="formsp">
+                <a href="@Url.Action("xemchitiet", new {@Masp=item.Masp })">
+                    <img src=@Url.Content("~"+item.Anhbia) class="imgs-ip" alt="" />
+                </a>
+                <p>
+                    <h3 class="Ten-ip">  @item.Tensp </h3>
+                <p class="Mn"> @item.Giatien.ToString("N0") VNĐ</p>
+                <br />
+            </div>
+        </div>
+    }
+</div>
+<style>
+    .formsp {
+        height: 350px;
+        margin-top: 20px;
+        background-color: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0.4rem 0.4rem 0.7rem rgb(194 180 180);
+    }
+
+    .Mn {
+        padding-top: 10px;
+        text-align: center;
+        color: red;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    .Ten-ip {
+        padding-top: 10px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .imgs-ip {
+        padding-top: 30px;
+        margin-left: 30px;
+        display: block;
+        width: 200px;
+        height: 230px;
+    }
+</style>
+
+

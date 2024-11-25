@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Quên mật khẩu";
+}
+
+<h2 class="text-center">Quên mật khẩu</h2>
+
+@using (Html.BeginForm("QuenMatKhau", "User", FormMethod.Post))
+{
+    <div class="forgot-password-container">
+        <div class="form-group">
+            <label for="email" class="control-label">Email của bạn:</label>
+            <input type="email" name="email" class="form-control" required placeholder="Nhập email của bạn" />
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Gửi yêu cầu</button>
+        </div>
+    </div>
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7fc;
+        margin: 0;
+        padding: 0;
+    }
+
+    .forgot-password-container {
+        max-width: 350px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        color: #D70018;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        width: 600px;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        transition: border 0.3s ease, transform 0.3s ease; 
+    }
+
+        .form-control:focus {
+            border-color: #28a745;
+            outline: none;
+            transform: scale(1.05);
+        }
+
+
+    .btn-primary {
+        width: 280px;
+        padding: 12px;
+        background-color: #D70018;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+        .btn-primary:hover {
+            background-color: #D70018;
+        }
+
+    .text-center {
+        text-align: center;
+        color: #28a745; 
+    }
+
+</style>

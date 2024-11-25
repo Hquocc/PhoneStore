@@ -1,66 +1,130 @@
 ﻿@using Ictshop.Models
 @model Sanpham
 
-
 @{
-    ViewBag.Title = "xemchitiet";
+    ViewBag.Title = "Chi tiết sản phẩm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<br />
-<CENTER>
-    <div>
-        <h4>Chi Tiết Sản Phẩm</h4>
-        <img class="img-sp" src="@Url.Content("~" + @Model.Anhbia)" />
-        <br />
-        <h3> <b>@Model.Tensp</b></h3>
-        <h3 style="color:red">
-            <b>@(Model.Giatien.HasValue ? Model.Giatien.Value.ToString("N0") + " VNĐ" : "Chưa có giá")</b>
-        </h3></h3>
-        <br />
-        <div style="font-size:16px;"><b>Tính Năng Nổi Bật</b> <br /> @Model.Mota </div>
-        <br />
+<div class="product-details">
+    <h4 class="product-title">Chi Tiết Sản Phẩm</h4>
+
+    <div class="product-info">
+        <!-- Hình ảnh sản phẩm -->
+        <div class="product-image">
+            <img class="img-sp" src="@Url.Content("~" + @Model.Anhbia)" alt="Ảnh sản phẩm" />
+        </div>
+
+        <!-- Thông tin sản phẩm -->
+        <div class="product-description">
+            <h3 class="product-name"><b>@Model.Tensp</b></h3>
+            <h3 class="product-price" style="color:red">
+                <b>@(Model.Giatien.HasValue ? Model.Giatien.Value.ToString("N0") + " VNĐ" : "Chưa có giá")</b>
+            </h3>
+            <div class="product-features">
+                <b>Tính Năng Nổi Bật:</b><br />
+                @Model.Mota
+            </div>
+        </div>
+    </div>
+
+    <!-- Các nút bấm -->
+    <div class="product-actions">
         @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMasp = Model.Masp, @strURL = Request.Url.ToString() }))
         {
             <input class="btn-mh" type="submit" value="Thêm vào giỏ hàng" id="bgnGioHang" />
-
         }
-        <div colspan="6">
-            @using (Html.BeginForm("ThanhToanDonHang", "GioHang", new { @class = "" }))
-            {
-                <input type="submit" value="Đặt hàng" class="btnMuaHang" />
-            }
-            </>
-
-        </div>
     </div>
-</CENTER>
+</div>
+
 <style>
-    .img-sp {
+    .product-details {
+        width: 80%;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
         border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
-    h3 {
-        font-size: 17px;
+    .product-title {
+        text-align: center;
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .product-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .product-image {
+        flex: 1;
+        text-align: center;
+    }
+
+        .product-image img {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+            .product-image img:hover {
+                transform: scale(1.05);
+            }
+
+    .product-description {
+        flex: 2;
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .product-name {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .product-price {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .product-features {
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+
+    .product-actions {
+        display: flex;
+        justify-content: center; 
+        margin-top: 30px;
     }
 
     .btn-mh {
-        width:400px;
-        color: white;
-        background-color: #D70018;
-        border-radius: 5px;
-        border-color: #D70018;
-        font-size: 18px;
-        margin-bottom: 20px;
-    }
-    .btnMuaHang {
         width: 400px;
+        padding: 12px;
+        font-size: 18px;
         color: white;
         background-color: #D70018;
         border-radius: 5px;
-        border-color: #D70018;
-        font-size: 18px;
-        margin-bottom: 20px;
-        text-align: center;
+        border: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
     }
+
+        .btn-mh:hover {
+            background-color: #C50016;
+            transform: scale(1.05);
+        }
+
+        .btn-mh:active {
+            transform: scale(1.1);
+        }
+
 </style>

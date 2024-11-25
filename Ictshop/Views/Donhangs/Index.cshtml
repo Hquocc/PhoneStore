@@ -1,73 +1,140 @@
 ﻿@model IEnumerable<Ictshop.Models.Donhang>
-
-@{ ViewBag.Title = "Index";
-                Layout = "~/Views/Shared/_Layout.cshtml"; }
-
 <h2>Danh sách đơn hàng</h2>
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>}
 
 <table class="table">
     <tr>
-        <th>
-            Họ tên
-        </th>
-        <th>
-            Ngày đặt
-        </th>
-        <th>
-            Tình trạng đơn hàng
-        </th>
-        <th>
-            Thanh toán
-        </th>
-        <th>
-            Địa chỉ nhận hàng
-        </th>
+        <th>Họ tên</th>
+        <th>Ngày đặt</th>
+        <th>Tình trạng đơn hàng</th>
+        <th>Thanh toán</th>
+        <th>Địa chỉ nhận hàng</th>
+        <th>Hành động</th>
     </tr>
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Nguoidung.Hoten)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Ngaydat)
-    </td>
-    <td>
-        @{ if (@item.Tinhtrang == 0)
-            {
-                <h5 style="color:red">Đang chờ xác nhận. </h5> 
-            }
-                else if (@item.Tinhtrang == 1)
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Nguoidung.Hoten)</td>
+            <td>@Html.DisplayFor(modelItem => item.Ngaydat)</td>
+            <td>
+                @if (item.Tinhtrang == null)
                 {
-                    <h5 style="color:green">Đã xác nhận </h5> 
+                    <h5 style="color:red">Chưa xác nhận</h5>
+                }
+                else if (item.Tinhtrang == 1)
+                {
+                    <h5 style="color:green">Đã xác nhận</h5>
+                }
+                else if (item.Tinhtrang == 2)
+                {
+                    <h5 style="color:orangered">Đang giao hàng</h5>
+                }
+                else if (item.Tinhtrang == 3)
+                {
+                    <h5 style="color:blue">Đã hoàn thành</h5>
+                }
+            </td>
+            <td>
+                @if (item.Thanhtoan == 1)
+                {
+                    <div style="color:red">Thanh toán tiền mặt</div>
+                }
+                else if (item.Thanhtoan == 2)
+                {
+                    <div style="color:brown">Thanh toán chuyển khoản</div>
+                }
+            </td>
+            <td>@Html.DisplayFor(modelItem => item.Diachinhanhang)</td>
+            <td>
+                @if (item.Tinhtrang == null || item.Tinhtrang == 0)
+                {
+                    <button class="btn btn-danger btn-huy">
+                        @Html.ActionLink("Hủy đơn hàng", "Delete", new { id = item.Madon }, new { @style = "color:white;" })
+                    </button>
                 }
                 else
                 {
-                 <h5 style="color:orangered">Đang chờ xác nhận </h5> 
-                } 
-         }
-    </td>
-    <td>
-        @{ if (@item.Thanhtoan == 1)
-            {
-                <div style="color:red">Thanh toán tiền mặt</div> 
+                    <button class="btn btn-danger btn-huy" disabled>
+                        Hủy đơn hàng
+                    </button>
                 }
-            else if (@item.Thanhtoan == 2)
-            {
-                <div style="color:brown">Thanh toán chuyển khoản</div> }
-            }
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Diachinhanhang)
-    </td>
-    <td>
-        <button class="btn-primary">
-            @Html.ActionLink("Chi tiết", "Details", new { id = item.Madon }, new { @style = "color:white;" })
-        </button>
-
-    </td>
-</tr>}
-
+            </td>
+        </tr>
+    }
 </table>
+<style>
+    .btn-huy {
+        transition: all 0.3s ease;
+        padding: 6px 12px;
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+        border: 2px solid transparent;
+        border-radius: 4px;
+    }
+
+        .btn-huy:hover {
+            background-color: #c82333;
+            color: #fff;
+            border-color: #bd2130;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transform: scale(1.1);
+        }
+
+        .btn-huy:focus {
+            outline: none;
+        }
+
+        .btn-huy:disabled {
+            background-color: #f1f1f1;
+            color: #ccc;
+            border-color: #ddd;
+            cursor: not-allowed;
+        }
+
+            .btn-huy:disabled:hover {
+                background-color: #f1f1f1;
+                color: #ccc;
+                border-color: #ddd;
+                box-shadow: none;
+                transform: none;
+            }
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+<script>
+
+    var successMessage = @Html.Raw(Json.Encode(TempData["SuccessMessage"] ?? ""));
+    var errorMessage = @Html.Raw(Json.Encode(TempData["ErrorMessage"] ?? ""));
+
+    if (successMessage) {
+        toastr.success(successMessage, 'Thông báo', {
+            closeButton: true,
+            progressBar: true,
+            timeOut: 7000, 
+            positionClass: 'toast-top-center' 
+        });
+    }
+
+    if (errorMessage) {
+        toastr.error(errorMessage, 'Thông báo', {
+            closeButton: true,
+            progressBar: true,
+            timeOut: 5000, 
+            positionClass: 'toast-top-center' 
+        });
+    }
+</script>

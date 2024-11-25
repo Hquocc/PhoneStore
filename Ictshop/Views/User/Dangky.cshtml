@@ -5,68 +5,132 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="login-container">
+        <h2 style="color:red; font-weight: bold;">Đăng ký tài khoản</h2>
 
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         <div class="form-group">
-            @Html.LabelFor(model => model.Hoten, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Hoten, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.Hoten, htmlAttributes: new { @class = "control-label" })
+           
+                @Html.EditorFor(model => model.Hoten, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập họ tên" } })
                 @Html.ValidationMessageFor(model => model.Hoten, "", new { @class = "text-danger" })
-            </div>
+         
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+           
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập  email của bạn" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
+            
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Dienthoai, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Dienthoai, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.Dienthoai, htmlAttributes: new { @class = "control-label" })
+           
+                @Html.EditorFor(model => model.Dienthoai, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập số điện thoại" } })
                 @Html.ValidationMessageFor(model => model.Dienthoai, "", new { @class = "text-danger" })
-            </div>
+          
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Matkhau, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Matkhau, new { htmlAttributes = new { type = "Password", @class = "form-control" } })
+            @Html.LabelFor(model => model.Matkhau, htmlAttributes: new { @class = "control-label" })
+          
+                @Html.EditorFor(model => model.Matkhau, new { htmlAttributes = new { type = "Password", @class = "form-control", placeholder = "Nhập mật khẩu" } })
                 @Html.ValidationMessageFor(model => model.Matkhau, "", new { @class = "text-danger" })
-            </div>
+           
         </div>
+
         <div class="form-group">
-            @Html.LabelFor(model => model.Diachi, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Diachi, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.Diachi, htmlAttributes: new { @class = "control-label" })
+           
+                @Html.EditorFor(model => model.Diachi, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập địa chỉ" } })
                 @Html.ValidationMessageFor(model => model.Diachi, "", new { @class = "text-danger" })
-            </div>
+           
         </div>
 
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.IDQuyen, "IDQuyen", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("IDQuyen", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.IDQuyen, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Đăng ký" class="btn btn-default" />
-            </div>
+        <div style="margin-top:20px"  class="form-group  ">
+            <input type="submit" value="Đăng ký" class="btn btn-primary" />
         </div>
     </div>
 }
+<style>
+    .login-container {
+        max-width: 350px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        height: auto; 
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        justify-content: center;
+    }
+
+    .form-group {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        width: 100%;
+        font-size: 16px;
+        padding: 12px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+    }
+
+        .form-control:focus {
+            transform: scale(1.05);
+            border: 1px solid #28a745;
+            box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+            background-color: #f3f9f3;
+        }
+
+    .btn-primary {
+        width: 100%;
+        padding: 12px;
+        background-color: #D70018;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #C50016;
+            transform: scale(1.05);
+        }
+
+        .btn-primary:active {
+            transform: scale(1.1);
+        }
+
+    .registration-link {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 16px;
+    }
+
+    .btn-register {
+        color: #D70018;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        .btn-register:hover {
+            text-decoration: underline;
+        }
+</style>
 

@@ -2,72 +2,99 @@
 @model List<GioHang>
 
 @{
-    ViewBag.Title = "GioHang";
+    ViewBag.Title = "Giỏ Hàng";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<center><h2 class="text-info"> GIỎ HÀNG</h2></center>
+<center><h2 class="text-info">GIỎ HÀNG</h2></center>
 
 <table class="table-bordered font-italic divGioHang">
-    <tr>
-        <th> Mã SP</th>
-
-        <th> Tên SP</th>
-
-        <th> Ảnh bìa</th>
-
-        <th> Đơn giá</th>
-
-        <th> Số lượng</th>
-
-        <th> Thành tiền</th>
-    </tr>
-
-
-
-    @foreach (var item in Model)
-    {
+    <thead>
         <tr>
-            <td> @item.iMasp</td>
-
-            <td> @item.sTensp</td>
-
-            <td> <img src="@Url.Content("~" +item.sAnhBia)" width="50" height="50" /></td>
-
-            <td>  @String.Format("{0:0,0}", item.dDonGia) VNĐ</td>
-
-            @*Chỉnh sửa giỏ hàng gọi về action CapNhatGioHang*@
-            @using (Html.BeginForm("CapNhatGioHang", "GioHang", new { @iMaSP = item.iMasp }))
-            {
-                <td>@Html.TextBox("txtSoLuong", item.iSoLuong) </td>
-
-                <td>@String.Format("{0:0,0}", item.ThanhTien) VNĐ</td>
-                <td>
-                    <input type="submit" value="Cập nhật" class="btn-secondary" />
-                    <br />
-                    @*Xóa giỏ hàng gọi về Action XoaGioHang*@
-                    <button class="btn-success">@Html.ActionLink("Xóa", "XoaGioHang", new { @iMaSP = item.iMasp })</button>
-                </td>
-            }
-
+            <th> Mã SP</th>
+            <th> Tên SP</th>
+            <th> Ảnh bìa</th>
+            <th> Đơn giá</th>
+            <th> Số lượng</th>
+            <th> Thành tiền</th>
+            <th> Thao tác</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td> @item.iMasp</td>
+                <td> @item.sTensp</td>
+                <td> <img src="@Url.Content("~" + item.sAnhBia)" width="50" height="50" /></td>
+                <td> @String.Format("{0:0,0}", item.dDonGia) VNĐ</td>
+
+                @using (Html.BeginForm("CapNhatGioHang", "GioHang", new { @iMaSP = item.iMasp }))
+                {
+                    <td>@Html.TextBox("txtSoLuong", item.iSoLuong, new { style = "width: 50px;" })</td>
+                    <td>@String.Format("{0:0,0}", item.ThanhTien) VNĐ</td>
+                    <td>
+                        <input type="submit" value="Cập nhật" class="btn-secondary" style="padding: 5px 10px;" />
+                        <br />
+                        <button type="button" class="btn-danger">
+                            @Html.ActionLink("Xóa", "XoaGioHang", new { @iMaSP = item.iMasp }, new { @class = "text-white" })
+                        </button>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
 </table>
 
-@*Css giỏ hàng*@
 <style type="text/css">
     .divGioHang {
         border: 2px solid #EEEEEE;
-        margin-left: 10%;
-        font-size: large
+        margin-left: 5%;
+        margin-right: 5%;
+        font-size: large;
+        margin-bottom: 200px; 
     }
 
-        .divGioHang td {
-            padding: 10px;
+        .divGioHang td, .divGioHang th {
+            padding: 15px;
             border: 2px solid #EEEEEE;
-            text-align: center
+            text-align: center;
         }
 
         .divGioHang th {
-            text-align: center
+            background-color: #f5f5f5;
+            font-weight: bold;
         }
+
+        .divGioHang tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+
+    .btn-secondary, .btn-danger {
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        border: none;
+    }
+    .btn-secondary {
+        background-color: #f7c97c; 
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+        .btn-secondary:hover {
+            background-color: #f4b84e; 
+            transform: scale(1.05);
+        }
+
+    .btn-danger {
+        background-color: #f5a9a9; 
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+        .btn-danger:hover {
+            background-color: #f28e8e; 
+            transform: scale(1.05);
+        }
+
 </style>

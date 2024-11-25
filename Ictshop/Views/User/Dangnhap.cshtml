@@ -1,48 +1,173 @@
 ﻿@model Ictshop.Models.LoginModel
 
 @{
-    ViewBag.Title = "Dangnhap";
+    ViewBag.Title = "Đăng nhập";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<h2>Hãy đăng nhập để sử dụng đầy đủ tính năng của Website</h2>
-@using (Html.BeginForm("Dangnhap", "User", FormMethod.Post))
+@if (TempData["Error"] != null)
 {
-    @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.userMail, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.userMail, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.userMail, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.password, new { htmlAttributes = new { type = "Password", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Đăng nhập" class="btn btn-default" />
-            </div>
-        </div>
+    <div class="alert alert-danger">
+        @TempData["Error"]
     </div>
-    <div style="margin-left:95px; font-size:15px;">
-        <div>
-            <p style="margin-left:100px;">Bạn chưa có tài khoản? <a style="color:#D70018" href="/User/Dangky"><b>Đăng ký</b></a> </p>
-        </div>
-
+}
+@if (TempData["Error1"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error1"]
     </div>
 }
 
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
 
-@ViewBag.Fail
-@Html.ActionLink("Quay lại", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+<div class="login-container">
+    <h2 style="color:red; font-weight: bold;">Đăng nhập tài khoản của bạn</h2>
 
+    @using (Html.BeginForm("Dangnhap", "User", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.userMail, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.userMail, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập  email của bạn" } })
+            @Html.ValidationMessageFor(model => model.userMail, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.password, new { htmlAttributes = new { type = "Password", @class = "form-control", placeholder = "Nhập mật khẩu" } })
+            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Đăng nhập" class="btn btn-primary btn-lg" />
+        </div>
+    }
+
+<div class="registration-link">
+    <p style="font-size:13px">Chưa có tài khoản? <a href="/User/Dangky" class="btn-register">Đăng ký ngay</a></p>
+    <p style="font-size:13px"><a href="/User/QuenMatKhau" class="btn-register">Quên mật khẩu?</a></p>
+</div>
+</div>
+
+<style>
+    .login-container {
+        max-width: 350px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        height: auto;
+    }
+
+        .login-container h2 {
+            text-align: center;
+            
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+    .form-group {
+        width: 100px;
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        width: 100%;
+        font-size: 16px;
+        padding: 12px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+    }
+
+        .form-control:focus {
+            transform: scale(1.05);
+            border: 1px solid #28a745;
+            box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+        }
+
+
+    .btn-primary {
+        width: 100%;
+        padding: 12px;
+        background-color: #D70018;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .btn-primary:hover {
+            background-color: #C50016;
+        }
+
+    .registration-link {
+        text-align: right;
+        margin-top: 20px;
+        font-size: 16px;
+    }
+
+    .btn-register {
+        color: #D70018;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        .btn-register:hover {
+            text-decoration: underline;
+        }
+
+
+    .form-group {
+        width: 100%;
+        margin-bottom: 25px;
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 12px;
+        background-color: #D70018;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s ease;
+        margin-top: 20px;
+    }
+
+    .form-control {
+        font-size: 16px;
+    }
+
+    .btn-primary:hover {
+        background-color: #C50016;
+        transform: scale(1.05);
+    }
+
+    .registration-link {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 16px;
+    }
+
+    .btn-register {
+        color: #D70018;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        .btn-register:hover {
+            text-decoration: underline;
+        }
+</style>

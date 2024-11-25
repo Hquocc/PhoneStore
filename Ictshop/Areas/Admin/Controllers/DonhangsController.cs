@@ -5,8 +5,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Routing;
 using System.Web.Mvc;
 using Ictshop.Models;
+
 
 namespace Ictshop.Areas.Admin.Controllers
 {
@@ -39,25 +41,35 @@ namespace Ictshop.Areas.Admin.Controllers
         // GET: Admin/Donhangs/Create
         public ActionResult Create()
         {
-            ViewBag.MaNguoidung = new SelectList(db.Nguoidungs, "MaNguoiDung", "Anhdaidien");
+            // Lấy danh sách người dùng từ cơ sở dữ liệu
+            var nguoidungs = db.Nguoidungs.ToList();
+            var donhang = new Donhang
+            {
+                Ngaydat = DateTime.Now.Date  
+            };
+            // Gán vào ViewBag với đúng tên thuộc tính "MaNguoidung" và "Hoten"
+            ViewBag.Nguoidungs = new SelectList(nguoidungs, "MaNguoidung", "Hoten");
+
             return View();
         }
 
-        public ActionResult Xacnhan(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Donhang donhang = db.Donhangs.Find(id);
-            donhang.Tinhtrang = 1;
-            db.SaveChanges();
-            if (donhang == null)
-            {
-                return HttpNotFound();
-            }
-            return RedirectToAction("Index");
-        }
+
+
+        //public ActionResult Xacnhan(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Donhang donhang = db.Donhangs.Find(id);
+        //    donhang.Tinhtrang = 1;
+        //    db.SaveChanges();
+        //    if (donhang == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return RedirectToAction("Index");
+        //}
 
         // POST: Admin/Donhangs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
@@ -72,8 +84,7 @@ namespace Ictshop.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.MaNguoidung = new SelectList(db.Nguoidungs, "MaNguoiDung", "Anhdaidien", donhang.MaNguoidung);
+            ViewBag.Nguoidungs = new SelectList(db.Nguoidungs, "MaNguoidung", "Hoten", donhang.MaNguoidung);
             return View(donhang);
         }
 
@@ -123,6 +134,61 @@ namespace Ictshop.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             return View(donhang);
+        }
+        //public ActionResult Dagiao(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Donhang donhang = db.Donhangs.Find(id);
+        //    if (donhang == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    donhang.Tinhtrang = 2; // Đã giao
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
+        //public ActionResult Hoanthanh(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Donhang donhang = db.Donhangs.Find(id);
+        //    if (donhang == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    donhang.Tinhtrang = 3; // Hoàn thành
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
+
+
+        // Action cập nhật tình trạng đơn hàng
+        [HttpPost]
+        public ActionResult UpdateTinhTrang(int? id, int tinhTrang)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Donhang donhang = db.Donhangs.Find(id);
+            if (donhang == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Cập nhật tình trạng
+            donhang.Tinhtrang = tinhTrang;
+            db.Entry(donhang).State = EntityState.Modified;
+            db.SaveChanges();
+
+            TempData["Message"] = "Cập nhật tình trạng đơn hàng thành công!";
+            return RedirectToAction("Index");
         }
 
         // POST: Admin/Donhangs/Delete/5
