@@ -7,6 +7,7 @@ namespace Ictshop.Migrations
     {
         public override void Up()
         {
+
             CreateTable(
                 "dbo.Chitietdonhang",
                 c => new

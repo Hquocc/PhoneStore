@@ -11,14 +11,13 @@ namespace Ictshop.Controllers
     {
         Qlbanhang db = new Qlbanhang();
         // GET: GioHang
-        
+
         //Lấy giỏ hàng 
         public List<GioHang> LayGioHang()
         {
             List<GioHang> lstGioHang = Session["GioHang"] as List<GioHang>;
             if (lstGioHang == null)
             {
-                //Nếu giỏ hàng chưa tồn tại thì mình tiến hành khởi tao list giỏ hàng (sessionGioHang)
                 lstGioHang = new List<GioHang>();
                 Session["GioHang"] = lstGioHang;
             }
@@ -28,7 +27,7 @@ namespace Ictshop.Controllers
         public ActionResult ThemGioHang(int iMasp, string strURL)
         {
             Sanpham sp = db.Sanphams.SingleOrDefault(n => n.Masp == iMasp);
-            if ( sp == null)
+            if (sp == null)
             {
                 Response.StatusCode = 404;
                 return null;
@@ -54,7 +53,7 @@ namespace Ictshop.Controllers
         public ActionResult CapNhatGioHang(int iMaSP, FormCollection f)
         {
             //Kiểm tra masp
-            Sanpham sp = db.Sanphams.SingleOrDefault(n => n.Masp== iMaSP);
+            Sanpham sp = db.Sanphams.SingleOrDefault(n => n.Masp == iMaSP);
             //Nếu get sai masp thì sẽ trả về trang lỗi 404
             if (sp == null)
             {
@@ -77,7 +76,7 @@ namespace Ictshop.Controllers
         public ActionResult XoaGioHang(int iMaSP)
         {
             //Kiểm tra masp
-            Sanpham sp = db.Sanphams.SingleOrDefault(n => n.Masp== iMaSP);
+            Sanpham sp = db.Sanphams.SingleOrDefault(n => n.Masp == iMaSP);
             //Nếu get sai masp thì sẽ trả về trang lỗi 404
             if (sp == null)
             {
@@ -100,7 +99,7 @@ namespace Ictshop.Controllers
             return RedirectToAction("GioHang");
         }
         //Xây dựng trang giỏ hàng
-     
+
         public ActionResult GioHang()
         {
             // Kiểm tra nếu giỏ hàng trống
@@ -161,7 +160,6 @@ namespace Ictshop.Controllers
             return View(lstGioHang);
 
         }
-
         #region // Mới hoàn thiện
         //Xây dựng chức năng đặt hàng
         [HttpPost]
@@ -203,12 +201,12 @@ namespace Ictshop.Controllers
             foreach (var item in gh)
             {
                 Chitietdonhang ctDH = new Chitietdonhang();
-                decimal thanhtien =  item.iSoLuong * (decimal) item.dDonGia;
+                decimal thanhtien = item.iSoLuong * (decimal)item.dDonGia;
                 ctDH.Madon = ddh.Madon;
                 ctDH.Masp = item.iMasp;
                 ctDH.Soluong = item.iSoLuong;
                 ctDH.Dongia = (decimal)item.dDonGia;
-                ctDH.Thanhtien = (decimal) thanhtien;
+                ctDH.Thanhtien = (decimal)thanhtien;
                 ctDH.Phuongthucthanhtoan = 1;
                 db.Chitietdonhangs.Add(ctDH);
             }
@@ -216,7 +214,6 @@ namespace Ictshop.Controllers
             return RedirectToAction("Index", "Donhangs");
         }
         #endregion
-
         public ActionResult ThanhToanDonHang()
         {
 
@@ -225,11 +222,9 @@ namespace Ictshop.Controllers
                     new { MaTT = 1, TenPT="Thanh toán tiền mặt" },
                     new { MaTT = 2, TenPT="Thanh toán chuyển khoản" },
                 }, "MaTT", "TenPT", 1);
-            ViewBag.MaNguoiDung = new SelectList(db.Nguoidungs, "MaNguoiDung", "Hoten");
-
             //Kiểm tra đăng đăng nhập
             if (Session["use"] == null || Session["use"].ToString() == "")
-            {
+            { 
                 return RedirectToAction("Dangnhap", "User");
             }
             //Kiểm tra giỏ hàng
@@ -237,10 +232,15 @@ namespace Ictshop.Controllers
             {
                 RedirectToAction("Index", "Home");
             }
+
             //Thêm đơn hàng
             Donhang ddh = new Donhang();
             Nguoidung kh = (Nguoidung)Session["use"];
             List<GioHang> gh = LayGioHang();
+            if (kh == null)
+            {
+                return RedirectToAction("Dangnhap", "User");
+            }
             decimal tongtien = 0;
             foreach (var item in gh)
             {

@@ -49,7 +49,7 @@
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Donhang> Donhang { get; set; }
-
+        public bool IsVerified { get; set; }
         public virtual PhanQuyen PhanQuyen { get; set; }
     }
 }

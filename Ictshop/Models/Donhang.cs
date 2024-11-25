@@ -41,5 +41,6 @@
         public virtual ICollection<Chitietdonhang> Chitietdonhang { get; set; }
 
         public virtual Nguoidung Nguoidung { get; set; }
+        
     }
 }
