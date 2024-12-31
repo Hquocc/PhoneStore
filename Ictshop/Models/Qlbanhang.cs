@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace Ictshop.Models
         public virtual DbSet<PhanQuyen> PhanQuyens { get; set; }
         public virtual DbSet<Sanpham> Sanphams { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<SanPhamYeuThich> SanPhamYeuThichs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

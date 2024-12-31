@@ -20,5 +20,7 @@ namespace Ictshop.Models
         public int? version { get; set; }
 
         public byte[] definition { get; set; }
+        public object Nguoidung { get; internal set; }
+        public object SanPham { get; internal set; }
     }
 }
