@@ -19,64 +19,72 @@
 }
 else
 {
-    <table class="table-hover table-bordered divGioHang">
-        <tr>
-            <th> Mã SP</th>
-            <th> Tên SP</th>
-            <th> Ảnh bìa</th>
-            <th> Đơn giá</th>
-            <th> Số lượng</th>
-            <th> Thành tiền</th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr class="font-italic">
-                <td>@item.iMasp</td>
-                <td>@item.sTensp</td>
-                <td><img src="@Url.Content("~" + item.sAnhBia)" width="50" height="50" /></td>
-                <td>@String.Format("{0:0,0}", item.dDonGia) VNĐ</td>
-                <td>@item.iSoLuong</td>
-                <td>@String.Format("{0:0,0}", item.ThanhTien) VNĐ</td>
+    <div class="giohang-container">
+        <table class="table-hover table-bordered divGioHang">
+            <tr>
+                <th> Mã SP</th>
+                <th> Tên SP</th>
+                <th> Ảnh bìa</th>
+                <th> Đơn giá</th>
+                <th> Số lượng</th>
+                <th> Thành tiền</th>
             </tr>
-        }
 
-        <tr>
-            <td colspan="6" style="text-align:right">
-                @Html.ActionLink("Chỉnh sửa giỏ hàng", "SuaGioHang")
-            </td>
-            <td colspan="6" style="text-align:right;color:blue">
-                @using (Html.BeginForm("ThanhToanDonHang", "GioHang", new { @class = "" }))
-                {
-                    <input type="submit" value="Đặt hàng" class="btn-danger" />
-                }
-            </td>
-        </tr>
-    </table>
+            @foreach (var item in Model)
+            {
+                <tr class="font-italic">
+                    <td>@item.iMasp</td>
+                    <td>@item.sTensp</td>
+                    <td><img src="@Url.Content("~" + item.sAnhBia)" width="50" height="50" /></td>
+                    <td>@String.Format("{0:0,0}", item.dDonGia) VNĐ</td>
+                    <td>@item.iSoLuong</td>
+                    <td>@String.Format("{0:0,0}", item.ThanhTien) VNĐ</td>
+                </tr>
+            }
+
+            <tr>
+                <td colspan="6" style="text-align:right">
+                    @Html.ActionLink("Chỉnh sửa giỏ hàng", "SuaGioHang")
+                </td>
+                <td colspan="6" style="text-align:right;color:blue">
+                    @using (Html.BeginForm("ThanhToanDonHang", "GioHang", new { @class = "" }))
+                    {
+                        <input type="submit" value="Đặt hàng" class="btn-danger" />
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
 }
 
-@*Css giỏ hàng*@
+@*CSS Giỏ hàng*@
 <style type="text/css">
+    .giohang-container {
+        max-width: 80%; /* Adjust container width */
+        margin: 0 auto;
+    }
+
     .divGioHang {
         border: 2px solid #EEEEEE;
-        margin-left: 10%;
         font-size: large;
-        margin-bottom: 150px; 
+        margin-bottom: 150px;
     }
 
         .divGioHang td {
-            padding: 15px; 
+            padding: 15px;
             border: 2px solid #EEEEEE;
             text-align: center;
         }
 
         .divGioHang th {
             text-align: center;
-            padding: 15px; 
-        } 
+            padding: 15px;
+        }
+
     div.text-right {
         margin-top: 20px;
     }
+
     .btn-danger {
         padding: 12px 20px;
         font-size: 18px;
@@ -85,15 +93,16 @@ else
         border-radius: 5px;
         border: none;
         cursor: pointer;
+        transition: all 0.3s ease;
     }
 
         .btn-danger:hover {
             background-color: #C50016;
             transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .btn-danger:active {
             transform: scale(1.1);
         }
-
 </style>
