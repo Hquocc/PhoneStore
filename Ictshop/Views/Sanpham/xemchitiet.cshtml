@@ -7,7 +7,7 @@
 }
 
 <div class="product-details">
-    <h4 class="product-title">Chi Tiết Sản Phẩm</h4>
+    <h4 class="product-title" style="font-weight:bold">Chi Tiết Sản Phẩm</h4>
 
     <div class="product-info">
         <!-- Hình ảnh sản phẩm -->
@@ -39,12 +39,13 @@
 
 <style>
     .product-details {
-        width: 80%;
+        width: 100%;
         margin: 30px auto;
         padding: 20px;
         background-color: #f9f9f9;
         border-radius: 10px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        background: linear-gradient(90deg,#dd5e89,#f7bb97);
     }
 
     .product-title {
@@ -60,6 +61,7 @@
         align-items: flex-start;
         gap: 20px;
         margin-bottom: 20px;
+      
     }
 
     .product-image {
@@ -68,7 +70,7 @@
     }
 
         .product-image img {
-            width: 100%;
+            width: 70%;
             max-width: 350px;
             border-radius: 10px;
             transition: transform 0.3s ease-in-out;

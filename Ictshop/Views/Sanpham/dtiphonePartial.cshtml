@@ -1,17 +1,17 @@
-﻿<div class="row">
+﻿<div class="product-list row">
     @foreach (var item in Model)
     {
-        <div class="col-md-3 col-sm-6">
-            <div class="formsp">
-                <p class="tg">
+        <div class="product-item col-md-3 col-sm-6">
+            <div class="product-card">
+                <p class="product-card__installment">
                     Trả góp 0%
                 </p>
                 <a href="@Url.Action("xemchitiet", new {@Masp=item.Masp })">
-                    <img src="@Url.Content("~"+item.Anhbia)" class="imgs-ip" alt="" />
+                    <img src="@Url.Content("~"+item.Anhbia)" class="product-card__image" alt="Product Image" />
                 </a>
                 <p>
-                    <h3 class="Ten-ip">  @item.Tensp </h3>
-                <p class="Mn"> @item.Giatien.ToString("N0") VNĐ</p>
+                    <p class="product-card__name">  @item.Tensp </p>
+                <p class="product-card__price"> @item.Giatien.ToString("N0") VNĐ</p>
                 <br />
                 </p>
             </div>
@@ -19,8 +19,9 @@
     }
 </div>
 
+
 <style>
-    .formsp {
+    .product-card {
         height: 380px;
         margin-top: 20px;
         background-color: #ffffff;
@@ -32,14 +33,14 @@
         padding: 10px;
         position: relative;
         overflow: hidden;
-        transition: transform 0.3s ease-in-out; /* Thêm hiệu ứng cho toàn bộ formsp */
+        transition: transform 0.3s ease-in-out; /* Thêm hiệu ứng cho toàn bộ sản phẩm */
     }
 
-        .formsp:hover {
-            transform: scale(1.05); /* Khi rê chuột vào thẻ formsp, phóng to */
+        .product-card:hover {
+            transform: scale(1.05); /* Khi rê chuột vào sản phẩm, phóng to */
         }
 
-    .Mn {
+    .product-card__price {
         color: red;
         font-weight: bold;
         font-size: 15px;
@@ -47,15 +48,16 @@
         margin-top: auto;
     }
 
-    .Ten-ip {
+    .product-card__name {
         font-weight: bold;
         text-align: left;
-        height: 40px;
+        height: 60px;
+        font-size:13px;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
-    .imgs-ip {
+    .product-card__image {
         margin: 0 auto;
         display: block;
         width: 200px;
@@ -64,7 +66,7 @@
         transition: transform 0.3s ease-in-out; /* Thêm hiệu ứng cho hình ảnh */
     }
 
-    .tg {
+    .product-card__installment {
         position: absolute; /* Đảm bảo tg ở vị trí tuyệt đối */
         top: 10px; /* Khoảng cách từ trên */
         right: 10px; /* Khoảng cách từ phải */
@@ -78,5 +80,5 @@
         border: 1px solid rgb(12, 83, 183);
         box-sizing: content-box;
     }
+
 </style>
-    

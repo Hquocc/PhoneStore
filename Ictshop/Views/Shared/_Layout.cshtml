@@ -15,169 +15,186 @@
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     @using Ictshop.Models
 
-    <style type="text/css">
-        body {
-            background-color: #F0F0F0;
+<style type="text/css">
+    body {
+        background-color: #F0F0F0;
+    }
+
+    .navbar-inverse {
+        background-color: #D70018;
+        border-color: #D70018;
+    }
+
+    .top_header {
+        padding-left: 110px;
+        color: white;
+    }
+
+    .form-inlinee {
+        float: right;
+        padding-top: 10px;
+        width: 300px;
+    }
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: white;
+        font-size: x-large;
+    }
+
+    .navbar-inverse .navbar-brand {
+        color: white;
+    }
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: white;
+        font-size: large;
+    }
+
+        .navbar-inverse .navbar-nav > li > a:hover {
+            color: black;
+            opacity: 0.5;
         }
 
-        .navbar-inverse {
-            background-color: #D70018;
-            border-color: #D70018;
+    .navbar-brand {
+        color: cadetblue;
+    }
+
+    .spnoibat h3 {
+        padding-left: 0px;
+        padding-top: 0px;
+    }
+
+    .giohang {
+        color: white;
+    }
+
+    .form-control {
+        border-radius: 10px;
+    }
+
+    h2 {
+        font-weight: 200;
+        font-size: 18px;
+    }
+
+    span {
+        font-size: 15px;
+    }
+
+    .navbar-nav {
+        display: flex;
+        justify-content: space-between; /* Distribute items evenly */
+        align-items: center;
+        width: 100%; /* Ensure it takes up the full width of the navbar */
+        flex-wrap: nowrap; /* Prevent wrapping */
+    }
+
+        .navbar-nav li {
+            text-align: center;
+            flex: 1 1 auto; /* Distribute space between items */
         }
 
-        .top_header {
-            padding-left: 110px;
-            color: white;
-        }
-
-        .form-inlinee {
-            float: right;
-            padding-top: 10px;
-            width: 300px;
-        }
-
-        .navbar-inverse .navbar-nav > li > a {
-            color: white;
-            font-size: x-large;
-        }
-
-        .navbar-inverse .navbar-brand {
-            color: white;
-        }
-
-        .navbar-inverse .navbar-nav > li > a {
-            color: white;
-            font-size: large;
-        }
-
-            .navbar-inverse .navbar-nav > li > a:hover {
-                color: black;
-                opacity: 0.5;
+            .navbar-nav li > a {
+                color: white;
+                font-size: large;
             }
 
+                .navbar-nav li > a:hover {
+                    color: black;
+                    opacity: 0.5;
+                }
 
-        .navbar-brand {
-            color: cadetblue;
-        }
-
-
-
-        .spnoibat h3 {
-            padding-left: 0px;
-            padding-top: 0px;
-        }
-
-
-        .giohang {
-            color: white;
-        }
-
-        .form-control {
-            border-radius: 10px;
-        }
-
-        h2 {
-            font-weight: 200;
-            font-size: 18px;
-        }
-
-        span {
-            font-size: 15px;
-        }
-        .navbar-nav {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-
-            .navbar-nav li {
-                flex-grow: 1;
-                text-align: center;
+            .navbar-nav li:last-child {
+                margin-right: 0; /* Remove any extra margin on the last item */
             }
 
-        .btn-user a:active {
+            .navbar-nav li:first-child {
+                margin-left: 0; /* Remove any extra margin on the first item */
+            }
+
+    .btn-user a:active {
+        text-decoration: none;
+    }
+
+    .log-out {
+        color: white;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .log-in {
+        margin-top: 5px;
+        color: white;
+        white-space: nowrap; /* Prevent text overflow */
+        display: inline-flex; /* Align items horizontally */
+        align-items: center; /* Center the content */
+    }
+
+        .log-in:hover {
+            color: #380404;
+            opacity: 0.3;
+        }
+
+        .log-in a {
             text-decoration: none;
         }
 
-        .log-out {
-            color: white;
-            font-size: 12px;
-            margin-top: 5px
+    .bx bx-log-out {
+        color: #333;
+        opacity: 0.8;
+    }
+
+    #searchResult {
+        margin-top: 10px;
+        position: absolute;
+        background-color: white;
+        z-index: 1000;
+        width: 350px;
+        border: 1px solid #ccc;
+        display: none;
+        text-align: left;
+        padding-left: 10px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        #searchResult div {
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
-        .log-in {
-            margin-top: 5px;
-            color: white;
-        }
-
-            .log-in:hover {
-                color: #380404;
-                opacity: 0.3;
+            #searchResult div:hover {
+                background-color: #f0f0f0;
+                border-radius: 5px;
+                margin-right: 10px;
+                transform: scale(1.1);
             }
 
-            .log-in a {
-                text-decoration: none;
-            }
+    #brandList {
+        margin-top: 5px;
+        position: absolute;
+        background-color: white;
+        z-index: 1000;
+        width: 150px;
+        border: 1px solid #ccc;
+        display: none;
+        text-align: left;
+        padding: 10px;
+        border-radius: 10px;
+    }
 
-        .bx bx-log-out {
-            color: #333;
-            opacity: 0.8;
+        #brandList div {
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
-        #searchResult {
-            margin-top: 10px;
-            position: absolute;
-            background-color: white;
-            z-index: 1000;
-            width: 350px;
-            border: 1px solid #ccc;
-            display: none;
-            text-align: left;
-            padding-left: 10px;
-            border-radius: 10px;
-            overflow: hidden; 
-        }
-
-            #searchResult div {
-                padding: 5px 10px;
-                cursor: pointer;
-                transition: transform 0.3s ease; 
+            #brandList div:hover {
+                background-color: #f0f0f0;
+                border-radius: 5px;
+                transform: scale(1.1);
             }
-
-                #searchResult div:hover {
-                    background-color: #f0f0f0;
-                    border-radius: 5px;
-                    margin-right: 10px;
-                    transform: scale(1.1); 
-                }
-
-
-        #brandList {
-            margin-top: 5px;
-            position: absolute;
-            background-color: white;
-            z-index: 1000;
-            width: 150px;
-            border: 1px solid #ccc;
-            display: none;
-            text-align: left;
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-            #brandList div {
-                cursor: pointer;
-                transition: transform 0.3s ease; 
-            }
-
-                #brandList div:hover {
-                    background-color: #f0f0f0;
-                    border-radius: 5px;
-                    transform: scale(1.1); 
-                }
-
-
-    </style>
+</style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -246,31 +263,28 @@ $(document).ready(function () {
         <div class="top_header col-md-12">
         </div>
         <div class="container">
-
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>          
-                @Html.ActionLink("PhoneStore", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </button>
             </div>
             <div class="navbar-collapse collapse">
-
                 <ul class="nav navbar-nav">
+                    <li>
+                        @Html.ActionLink("PhoneStore", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    </li>
                     <li>
                         <a href="#" id="categoryLink">Danh mục</a>
                         <div id="brandList" style="display:none;"></div>
                     </li>
-
                     <li>
                         <form class="form-inline" style="float:left" id="searchForm">
-                            <input style="width:500px;" class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Tìm kiếm sản phẩm..." aria-label="Search">
-
+                            <input style="width:500px;" class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Bạn cần tìm gì ?  " aria-label="Search">
                             <div id="searchResult"></div>
                         </form>
                     </li>
-
                     <li>
                         <a href="/Home/Contact" title="LIENHE">
                             <div class="icon">
@@ -280,22 +294,22 @@ $(document).ready(function () {
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class='bx bx-map'></i>
-                            <span>Địa chỉ cửa hàng</span>
+                        <a style="color:white; font-size:15px" class="nav-link" href="@Url.Action("Index", "DonHangs")">
+                            <i class="bx bx-package" style="font-size: 20px;"></i> <!-- Biểu tượng hộp (package) -->
+                            Đơn Hàng
                         </a>
                     </li>
+
+
                     <li>
-                        <a style="color:white ; font-size:15px" class="nav-link" href="@Url.Action("Index", "DonHangs")">Đơn Hàng</a>
+                        @Html.Action("GioHangPartial", "GioHang", new { @class = "giohang" })
                     </li>
-                    <li> @Html.Action("GioHangPartial", "GioHang", new { @class = "giohang" })</li>
                     <li style="right:-20px;margin-bottom:4px;">
                         @{
                             if (u != null)
                             {
                                 <div class="log-out">
                                     <a style="color:white; font-size:15px " href="@Url.Action("Profile", "User", new { id = u.MaNguoiDung  })">@u.Hoten</a>
-
                                     <a href="/User/DangXuat">  <i style="font-size: 13px;color:white " class='bx bx-log-out'></i></a>
                                 </div>
                             }
@@ -309,80 +323,97 @@ $(document).ready(function () {
                     </li>
                 </ul>
             </div>
-
         </div>
     </div>
-    
+
 
     <br>
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
+
         <div>
-            <img class="img-responsive" src="~/HinhanhSP/ban2.jpg" />
+            <img class="img-responsive" style="margin-top:60px" src="~/HinhanhSP/ban2.jpg" />
         </div>
         <br />
     </div>
-    <footer class="bg-info" style="padding-left:50px ;">
-        <div class="row">
-            <div class="col-md-3 col-sm-6">
-                <h2>Tổng đài hỗ trợ miễn phí</h2>
-                <span>Gọi mua hàng 1800.6868 (7h30 - 22h00) </span>
-                <br />
-                <span>Gọi khiếu nại 1800.2063 (8h00 - 21h30)</span>
-                <br />
-                <span>Gọi bảo hành 1800.2064 (8h00 - 21h00)</span>
+    <footer class="bg-white text-dark" style="padding: 40px 50px;">
+        <div class="container">
+            <div class="row">
+                <!-- Customer Support -->
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <h2 class="h4 font-weight-bold" style="font-weight:bold">Tổng đài hỗ trợ miễn phí</h2>
+                    <p><strong>Gọi mua hàng:</strong> 1800.6868 (7h30 - 22h00)</p>
+                    <p><strong>Gọi khiếu nại:</strong> 1800.2063 (8h00 - 21h30)</p>
+                    <p><strong>Gọi bảo hành:</strong> 1800.2064 (8h00 - 21h00)</p>
+                </div>
 
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <h2>Dịch vụ khác</h2>
-                <span>Khách hàng doanh nghiệp (B2B)</span>
-                <br />
-                <span>Ưu đãi thanh toán</span>
-                <br />
-                <span>Quy chế hoạt động</span>
-                <br />
-                <span>Chính sách Bảo hành</span>
-                <br />
-                <span>Liên hệ hợp tác kinh doanh</span>
-                <br />
-                <span>Dịch vụ bảo hành điện thoại</span>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <h2>Thông tin chính sách</h2>
-                <span>Mua hàng và thanh toán Online</span>
-                <br />
-                <span>Mua hàng tra gốp Online</span>
-                <br />
-                <span>Chính sách giao hàng</span>
-                <br />
-                <span>Tra điểm Smember</span>
-                <br />
-                <span>Tra cứu thông tin bảo hành</span>
-                <br />
-                <span>Tra cứu hóa đơn điện tử</span>
-            </div>
-            <div class="col-md-3 col-sm-6">
+                <!-- Other Services -->
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <h2 class="h4 font-weight-bold" style="font-weight:bold">Dịch vụ khác</h2>
+                    <p>Khách hàng doanh nghiệp (B2B)</p>
+                    <p>Ưu đãi thanh toán</p>
+                    <p>Quy chế hoạt động</p>
+                    <p>Chính sách Bảo hành</p>
+                    <p>Liên hệ hợp tác kinh doanh</p>
+                    <p>Dịch vụ bảo hành điện thoại</p>
+                </div>
 
-                <h2>Theo dõi</h2>
-                <span>Instagram <a class="social-icon"> <i class="fab fa-instagram"></i> </a> </span>
-                <br />
-                <span>Facebook <a class="social-icon"> <i class="fab fa-facebook-f"></i> </a> </span>
-                <br />
-                <span>Youtube <a class="social-icon"><i class="fab fa-youtube " style="color: #db3c14;"></i> </a> </span>
-                <br />
-                <span>Shope </span>
-                <br />
-                <span>Group</span>
+                <!-- Policies Information -->
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <h2 class="h4 font-weight-bold" style="font-weight:bold">Thông tin chính sách</h2>
+                    <p>Mua hàng và thanh toán Online</p>
+                    <p>Mua hàng trả góp Online</p>
+                    <p>Chính sách giao hàng</p>
+                    <p>Tra điểm Smember</p>
+                    <p>Tra cứu thông tin bảo hành</p>
+                    <p>Tra cứu hóa đơn điện tử</p>
+                </div>
+
+                <!-- Social Media and Tracking -->
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <h2 class="h4 font-weight-bold" style="font-weight:bold">Theo dõi</h2>
+                    <p>Instagram <a class="social-icon" href="#"><i class="fab fa-instagram"></i></a></p>
+                    <p>Facebook <a class="social-icon" href="#"><i class="fab fa-facebook-f"></i></a></p>
+                    <p>Youtube <a class="social-icon" href="#"><i class="fab fa-youtube" style="color: #db3c14;"></i></a></p>
+                    <p>Shopee</p>
+                    <p>Group</p>
+                </div>
             </div>
         </div>
-        <hr />
-        <center> <p class="bg-primary">&copy; @DateTime.Now.Year - PhoneStore</p></center>
+
+        <hr class="border-dark">
+        <div class="text-center">
+            <p>&copy; 2025 . All Rights Reserved.</p>
+        </div>
     </footer>
 
+    <style>
 
+        footer {
+            background-color: #ffffff; /* White background */
+            color: #000000; /* Black text */
+        }
 
+        .social-icon {
+            margin-left: 10px;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+            .social-icon:hover {
+                color: #db3c14;
+            }
+
+        hr {
+            border-top: 1px solid #000000; /* Dark border */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

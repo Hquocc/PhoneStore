@@ -1,8 +1,15 @@
 ﻿<style type="text/css">
-    
+    .giohang {
+        display: inline-flex;
+        align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+    }
 
+        .giohang i {
+            margin-right: 3px; /* Khoảng cách giữa biểu tượng và văn bản */
+        }
 </style>
 
-<a style="font-size:15px" href="@Url.Action("GioHang","GioHang")" class="giohang" >Giỏ hàng<i class="fa fa-shopping-cart">
-        </i> @ViewBag.TongSoLuong</a>
-
+<a style="font-size:15px" href="@Url.Action("GioHang","GioHang")" class="giohang">
+    <i class="fa fa-shopping-cart"></i>
+    Giỏ hàng @ViewBag.TongSoLuong
+</a>

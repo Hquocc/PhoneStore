@@ -1,84 +1,21 @@
-﻿<div class="row">
+﻿<div class="product-list row">
     @foreach (var item in Model)
     {
-        <div class="col-md-3 col-sm-6">
-            <div class="formspss">
-                <p class="tgg">
+        <div class="product-item col-md-3 col-sm-6">
+            <div class="product-card">
+                <p class="product-card__installment">
                     Trả góp 0%
                 </p>
-                <a href="@Url.Action("xemchitiet", new { @Masp=item.Masp })">
-                    <img src="@Url.Content("~" + item.Anhbia)" class="imgs-spss" alt="" />
+                <a href="@Url.Action("xemchitiet", new {@Masp=item.Masp })">
+                    <img src="@Url.Content("~"+item.Anhbia)" class="product-card__image" alt="Product Image" />
                 </a>
-                <center>
-                    <h3 class="Name"> <b> @item.Tensp </b></h3>
-                    <p class="Mn"> @(item.Giatien?.ToString("N0") ?? "0") VNĐ</p>
-                </center>
+                <p>
+                    <h3 class="product-card__name">  @item.Tensp </h3>
+                <p class="product-card__price"> @item.Giatien.ToString("N0") VNĐ</p>
+                <br />
+                </p>
             </div>
         </div>
     }
 </div>
 
-<style>
-    .tgg {
-        position: absolute; /* Đảm bảo tg ở vị trí tuyệt đối */
-        top: 10px; /* Khoảng cách từ trên */
-        right: 10px; /* Khoảng cách từ phải */
-        background-color: rgb(255, 255, 255);
-        font-family: Roboto, sans-serif;
-        font-size: 12px;
-        font-weight: 500;
-        color: rgb(12, 83, 183);
-        padding: 5px;
-        border-radius: 5px;
-        border: 1px solid rgb(12, 83, 183);
-        box-sizing: content-box;
-    }
-
-    .formspss {
-        height: 380px;
-        margin-top: 20px;
-        background-color: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0.4rem 0.4rem 0.7rem rgb(194 180 180);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 10px;
-        position: relative; /* Đảm bảo tgg được đặt đúng vị trí */
-        overflow: hidden;
-        transition: transform 0.3s ease-in-out; /* Thêm hiệu ứng cho toàn bộ formpss */
-    }
-
-        .formspss:hover {
-            transform: scale(1.05); /* Khi rê chuột vào thẻ formspss, phóng to */
-        }
-
-    .Name {
-        font-weight: bold;
-        text-align: left;
-        height: 40px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    h3 {
-        font-size: 13px;
-    }
-
-    .imgs-spss {
-        margin: 0 auto;
-        display: block;
-        width: 200px;
-        height: 220px;
-        padding-top: 20px;
-        transition: transform 0.3s ease-in-out; /* Thêm hiệu ứng cho hình ảnh */
-    }
-
-    .Mn {
-        color: red;
-        font-weight: bold;
-        font-size: 15px;
-        text-align: center;
-        margin-top: auto;
-    }
-</style>
