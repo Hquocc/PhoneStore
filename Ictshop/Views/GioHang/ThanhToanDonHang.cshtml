@@ -1,4 +1,16 @@
 ﻿@model Ictshop.Models.Donhang
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
 
 @{
     ViewBag.Title = "ThanhToanDonHang";
@@ -189,3 +201,29 @@
         transition: all 0.3s ease;
     }
 </style>
+<!-- Thêm thông báo toastr -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+<script>
+    var successMessage = @Html.Raw(Json.Encode(TempData["SuccessMessage"] ?? ""));
+    var errorMessage = @Html.Raw(Json.Encode(TempData["ErrorMessage"] ?? ""));
+
+    if (successMessage) {
+        toastr.success(successMessage, 'Thông báo', {
+            closeButton: true,
+            progressBar: true,
+            timeOut: 7000,
+            positionClass: 'toast-top-center'
+        });
+    }
+
+    if (errorMessage) {
+        toastr.error(errorMessage, 'Thông báo', {
+            closeButton: true,
+            progressBar: true,
+            timeOut: 5000,
+            positionClass: 'toast-top-center'
+        });
+    }
+</script>

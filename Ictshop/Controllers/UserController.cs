@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using Ictshop.Models;
+
 namespace Ictshop.Controllers
 {
     public class UserController : Controller
     {
         Qlbanhang db = new Qlbanhang();
+
         // ĐĂNG KÝ
         public ActionResult Dangky()
         {
@@ -23,37 +22,45 @@ namespace Ictshop.Controllers
         [HttpPost]
         public ActionResult Dangky(Nguoidung nguoidung)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // Thêm người dùng mới vào cơ sở dữ liệu
-                db.Nguoidungs.Add(nguoidung);
-                db.SaveChanges();
-
-                if (ModelState.IsValid)
+                try
                 {
-                    // Gửi email xác minh
+                    db.Nguoidungs.Add(nguoidung);
+                    db.SaveChanges();
                     string verificationLink = Url.Action("VerifyEmail", "User", new { id = nguoidung.MaNguoiDung }, protocol: Request.Url.Scheme);
-
-                    MailMessage mailMessage = new MailMessage();
-                    mailMessage.From = new MailAddress("vietviprp2003@gmail.com");
+                    MailMessage mailMessage = new MailMessage
+                    {
+                        From = new MailAddress("vietviprp2003@gmail.com"),
+                        Subject = "Xác minh email của bạn",
+                        Body = $"Vui lòng nhấn vào liên kết sau để xác minh tài khoản của bạn: {verificationLink}",
+                        IsBodyHtml = true
+                    };
                     mailMessage.To.Add(nguoidung.Email);
-                    mailMessage.Subject = "Xác minh email của bạn";
-                    mailMessage.Body = $"Vui lòng nhấn vào liên kết sau để xác minh tài khoản của bạn: {verificationLink}";
-                    mailMessage.IsBodyHtml = true;
-                    SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
-                    smtpClient.Credentials = new NetworkCredential("vietviprp2003@gmail.com", "euexrfrwgjunivzp");
-                    smtpClient.EnableSsl = true;
+
+                    SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587)
+                    {
+                        Credentials = new NetworkCredential("vietviprp2003@gmail.com", "euexrfrwgjunivzp"),
+                        EnableSsl = true
+                    };
                     smtpClient.Send(mailMessage);
 
+                    TempData["SuccessMessage"] = "Đăng ký thành công. Vui lòng kiểm tra email để xác minh tài khoản.";
                     return RedirectToAction("Dangnhap");
                 }
-                return View("Dangky");
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    TempData["ErrorMessage"] = "Đã có lỗi xảy ra. Vui lòng thử lại.";
+                }
             }
-            catch
+            else
             {
-                return View();
+                TempData["ErrorMessage"] = "Đăng ký không thành công. Vui lòng kiểm tra lại!";
             }
+            return View(nguoidung);
         }
+
         public ActionResult VerifyEmail(int? id)
         {
             if (id == null)
@@ -90,10 +97,10 @@ namespace Ictshop.Controllers
 
             return View();
         }
+
         [HttpPost]
         public ActionResult Dangnhap(FormCollection userlog)
         {
-
             string userMail = userlog["userMail"].ToString();
             string password = userlog["password"].ToString();
             var islogin = db.Nguoidungs.SingleOrDefault(x => x.Email.Equals(userMail) && x.Matkhau.Equals(password));
@@ -102,11 +109,10 @@ namespace Ictshop.Controllers
             {
                 if (!islogin.IsVerified)
                 {
-
                     TempData["Error"] = "Bạn cần xác minh email của mình trước khi đăng nhập.";
                     return RedirectToAction("Dangnhap");
                 }
-               
+
                 if (userMail == "Admin@gmail.com")
                 {
                     Session["use"] = islogin;
@@ -120,76 +126,18 @@ namespace Ictshop.Controllers
             }
             else
             {
-                TempData["Error1"] = "Vui lòng kiểm tra lại gmail hoặc mật khẩu.";
+                TempData["Error"] = "Vui lòng kiểm tra lại email hoặc mật khẩu.";
                 return View("Dangnhap");
             }
-
         }
+
         public ActionResult DangXuat()
         {
             Session["use"] = null;
             return RedirectToAction("Index", "Home");
-
         }
 
-        public ActionResult Profile(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Nguoidung nguoiDung = db.Nguoidungs.Find(id);
-            if (nguoiDung == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nguoiDung);
-        }
-
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Nguoidung nguoidung = db.Nguoidungs.Find(id);
-            if (nguoidung == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.IDQuyen = new SelectList(db.PhanQuyens, "IDQuyen", "TenQuyen", nguoidung.IDQuyen);
-            return View(nguoidung);
-        }
-
-        // POST: Admin/Nguoidungs/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaNguoiDung,Hoten,Email,Dienthoai,Matkhau,IDQuyen, Anhdaidien,Diachi")] Nguoidung nguoidung)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(nguoidung).State = EntityState.Modified;
-                db.SaveChanges();
-                //@ViewBag.show = "Chỉnh sửa hồ sơ thành công";
-                //return View(nguoidung);
-                return RedirectToAction("Profile", new { id = nguoidung.MaNguoiDung });
-
-            }
-            ViewBag.IDQuyen = new SelectList(db.PhanQuyens, "IDQuyen", "TenQuyen", nguoidung.IDQuyen);
-            return View(nguoidung);
-        }
-        public static byte[] encryptData(string data)
-        {
-            System.Security.Cryptography.MD5CryptoServiceProvider md5Hasher = new System.Security.Cryptography.MD5CryptoServiceProvider();
-            byte[] hashedBytes;
-            System.Text.UTF8Encoding encoder = new System.Text.UTF8Encoding();
-            hashedBytes = md5Hasher.ComputeHash(encoder.GetBytes(data));
-            return hashedBytes;
-        }
-        public static string md5(string data)
-        {
-            return BitConverter.ToString(encryptData(data)).Replace("-", "").ToLower();
-        }
+        // Quên mật khẩu
         public ActionResult QuenMatKhau()
         {
             return View();
@@ -202,7 +150,7 @@ namespace Ictshop.Controllers
             if (nguoidung == null)
             {
                 TempData["Error"] = "Email không tồn tại.";
-                return RedirectToAction("Dangnhap", "User"); 
+                return RedirectToAction("Dangnhap");
             }
 
             string resetLink = Url.Action("ResetMatKhau", "User", new { id = nguoidung.MaNguoiDung }, protocol: Request.Url.Scheme);
@@ -221,6 +169,8 @@ namespace Ictshop.Controllers
             TempData["Success"] = "Một email khôi phục mật khẩu đã được gửi đến địa chỉ của bạn.";
             return RedirectToAction("Dangnhap");
         }
+
+        // Reset mật khẩu
         public ActionResult ResetMatKhau(int? id)
         {
             if (id == null)
@@ -236,6 +186,7 @@ namespace Ictshop.Controllers
 
             return View(nguoidung);
         }
+
         [HttpPost]
         public ActionResult ResetMatKhau(int id, string newPassword, string confirmPassword)
         {
@@ -250,14 +201,12 @@ namespace Ictshop.Controllers
             {
                 return HttpNotFound();
             }
-            nguoidung.Matkhau = newPassword; 
+
+            nguoidung.Matkhau = newPassword;
             db.SaveChanges();
 
             TempData["Success"] = "Mật khẩu của bạn đã được khôi phục thành công.";
             return RedirectToAction("Dangnhap");
         }
-
-
     }
-   
 }

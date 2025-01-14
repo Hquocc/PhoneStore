@@ -5,7 +5,7 @@
     ViewBag.Title = "Giỏ Hàng";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<center><h2 class="text-info">GIỎ HÀNG</h2></center>
+<h2 class="giohang-title">Giỏ hàng <i class="fa fa-shopping-cart"></i></h2>
 
 <table class="table-bordered font-italic divGioHang">
     <thead>
@@ -48,10 +48,18 @@
 <style type="text/css">
     .divGioHang {
         border: 2px solid #EEEEEE;
-        margin-left: 5%;
-        margin-right: 5%;
         font-size: large;
-        margin-bottom: 200px; 
+        margin-bottom: 200px;
+        background-color: white; /* White background */
+        border-radius: 10px; /* Rounded corners */
+        width: 100%; /* Full width */
+    }
+    .giohang-title {
+        font-weight: bold;
+        font-size: 24px;
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
     }
 
         .divGioHang td, .divGioHang th {
@@ -75,26 +83,32 @@
         cursor: pointer;
         border: none;
     }
+
     .btn-secondary {
-        background-color: #f7c97c; 
+        background-color: #f7c97c;
         color: white;
-        transition: all 0.3s ease;
+        transition: all 0.3s ease;  
     }
 
         .btn-secondary:hover {
-            background-color: #f4b84e; 
+            background-color: #f4b84e;
             transform: scale(1.05);
         }
 
     .btn-danger {
-        background-color: #f5a9a9; 
+        background-color: #f5a9a9;
         color: white;
         transition: all 0.3s ease;
     }
 
         .btn-danger:hover {
-            background-color: #f28e8e; 
+            background-color: #f28e8e;
             transform: scale(1.05);
         }
 
+    /* Remove underline on hover for ActionLink */
+    .text-white:hover {
+        text-decoration: none;
+        color: white; /* Ensure the color remains white when hovered */
+    }
 </style>

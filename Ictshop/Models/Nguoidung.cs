@@ -37,10 +37,9 @@
         public string Dienthoai { get; set; }
 
         [Required(ErrorMessage = "Mật khẩu bắt buộc nhập")]
-        [StringLength(maximumLength: 20, MinimumLength = 8, ErrorMessage = "Độ dài mật khẩu từ 8-20 kí tự")]
+        [StringLength(maximumLength: 20, MinimumLength = 8, ErrorMessage = "Độ dài mật khẩu phải từ 8-20 ký tự")]
         [Display(Name = "Mật khẩu")]
         public string Matkhau { get; set; }
-
         public int? IDQuyen { get; set; }
 
         [StringLength(100)]

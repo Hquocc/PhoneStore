@@ -623,4 +623,4 @@ C:\Users\hochi\Document\DoAnMonHoc\PhoneStore\ictshop_aspnet-master\Ictshop\bin\
 C:\Users\hochi\Document\DoAnMonHoc\PhoneStore\ictshop_aspnet-master\Ictshop\bin\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\hochi\Document\DoAnMonHoc\PhoneStore\ictshop_aspnet-master\Ictshop\bin\System.Threading.Tasks.Extensions.xml
 C:\Users\hochi\Document\DoAnMonHoc\PhoneStore\ictshop_aspnet-master\Ictshop\bin\System.ValueTuple.xml
-C:\Users\hochi\Document\DoAnMonHoc\PhoneStore\ictshop_aspnet-master\Ictshop\obj\Debug\Ictshop.csproj.CopyComplete
+C:\Users\hochi\Document\DoAnMonHoc\PhoneStore\ictshop_aspnet-master\Ictshop\obj\Debug\Ictshop.csproj.Up2Date

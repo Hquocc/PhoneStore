@@ -2,16 +2,16 @@
 @model List<GioHang>
 
 @{
-    ViewBag.Title = "GioHang";
+    ViewBag.Title = "Giỏ Hàng";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class=""> GIỎ HÀNG <i class="fa fa-shopping-cart"></i></h2>
+<h2 class="giohang-title">Giỏ hàng <i class="fa fa-shopping-cart"></i></h2>
 <br />
 
 @if (Model == null || !Model.Any())
 {
-    <div style="text-align:center; padding: 20px;">
+    <div class="empty-cart">
         <h3>Giỏ hàng của bạn đang trống!</h3>
         <p>Vui lòng thêm sản phẩm vào giỏ hàng.</p>
         @Html.ActionLink("Tiếp tục mua sắm", "Index", "Home", new { area = "" }, new { @class = "btn btn-primary" })
@@ -20,71 +20,117 @@
 else
 {
     <div class="giohang-container">
-        <table class="table-hover table-bordered divGioHang">
-            <tr>
-                <th> Mã SP</th>
-                <th> Tên SP</th>
-                <th> Ảnh bìa</th>
-                <th> Đơn giá</th>
-                <th> Số lượng</th>
-                <th> Thành tiền</th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
-                <tr class="font-italic">
-                    <td>@item.iMasp</td>
-                    <td>@item.sTensp</td>
-                    <td><img src="@Url.Content("~" + item.sAnhBia)" width="50" height="50" /></td>
-                    <td>@String.Format("{0:0,0}", item.dDonGia) VNĐ</td>
-                    <td>@item.iSoLuong</td>
-                    <td>@String.Format("{0:0,0}", item.ThanhTien) VNĐ</td>
+        <table class="giohang-table">
+            <thead>
+                <tr>
+                    <th> Mã SP</th>
+                    <th> Tên SP</th>
+                    <th> Ảnh bìa</th>
+                    <th> Đơn giá</th>
+                    <th> Số lượng</th>
+                    <th> Thành tiền</th>
                 </tr>
-            }
-
-            <tr>
-                <td colspan="6" style="text-align:right">
-                    @Html.ActionLink("Chỉnh sửa giỏ hàng", "SuaGioHang")
-                </td>
-                <td colspan="6" style="text-align:right;color:blue">
-                    @using (Html.BeginForm("ThanhToanDonHang", "GioHang", new { @class = "" }))
-                    {
-                        <input type="submit" value="Đặt hàng" class="btn-danger" />
-                    }
-                </td>
-            </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="font-italic">
+                        <td>@item.iMasp</td>
+                        <td>@item.sTensp</td>
+                        <td><img src="@Url.Content("~" + item.sAnhBia)" width="50" height="50" class="product-img" /></td>
+                        <td>@String.Format("{0:0,0}", item.dDonGia) VNĐ</td>
+                        <td>@item.iSoLuong</td>
+                        <td>@String.Format("{0:0,0}", item.ThanhTien) VNĐ</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="text-right">
+                        <button class="edit-cart-btn" onclick="window.location.href='@Url.Action("SuaGioHang", "GioHang")'">Chỉnh sửa giỏ hàng</button>
+                    </td>
+                    <td colspan="6" class="text-right">
+                        @using (Html.BeginForm("ThanhToanDonHang", "GioHang", new { @class = "checkout-form" }))
+                        {
+                            <input type="submit" value="Đặt hàng" class="btn btn-danger" />
+                        }
+                    </td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 }
 
-@*CSS Giỏ hàng*@
+@* CSS Giỏ hàng *@
 <style type="text/css">
+    /* Tiêu đề giỏ hàng */
+    .giohang-title {
+        font-weight: bold;
+        font-size: 24px;
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Container Giỏ hàng */
     .giohang-container {
-        max-width: 80%; /* Adjust container width */
+        max-width: 100%; /* Chiếm toàn bộ chiều rộng */
         margin: 0 auto;
     }
 
-    .divGioHang {
-        border: 2px solid #EEEEEE;
-        font-size: large;
-        margin-bottom: 150px;
+    /* Bảng Giỏ hàng */
+    .giohang-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+        background-color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden; /* Bo góc cho bảng */
     }
 
-        .divGioHang td {
-            padding: 15px;
-            border: 2px solid #EEEEEE;
+        .giohang-table th, .giohang-table td {
+            padding: 12px;
             text-align: center;
+            border: 1px solid #ddd;
         }
 
-        .divGioHang th {
-            text-align: center;
-            padding: 15px;
+        .giohang-table th {
+            background-color: #f7f7f7;
+            color: #333;
+            font-weight: bold;
         }
 
-    div.text-right {
-        margin-top: 20px;
+        .giohang-table td {
+            border-radius: 8px;
+        }
+
+    /* Trạng thái rỗng */
+    .empty-cart {
+        text-align: center;
+        padding: 40px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
+        .empty-cart h3 {
+            font-size: 22px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .empty-cart p {
+            color: #777;
+        }
+
+    /* Ảnh sản phẩm */
+    .product-img {
+        border-radius: 4px;
+        object-fit: cover;
+    }
+
+    /* Các nút bấm */
     .btn-danger {
         padding: 12px 20px;
         font-size: 18px;
@@ -104,5 +150,40 @@ else
 
         .btn-danger:active {
             transform: scale(1.1);
+        }
+    /* Nút chỉnh sửa giỏ hàng */
+    .edit-cart-btn {
+        background-color: transparent;
+        color: #007bff;
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+        .edit-cart-btn:hover {
+            color: #0056b3;
+            /* Bỏ gạch chân khi rê chuột */
+            text-decoration: none;
+        }
+
+
+    /* Form thanh toán */
+    .checkout-form input[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff;
+        color: white;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .checkout-form input[type="submit"]:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
         }
 </style>

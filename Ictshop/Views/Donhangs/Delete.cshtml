@@ -16,7 +16,7 @@
     @TempData["SuccessMessage"]
 </div>}
 
-<h2>Xác nhận hủy đơn hàng</h2>
+<h2 style="font-weight:bold" >Xác nhận hủy đơn hàng</h2>
 
 <div class="order-details">
     <h3>Thông tin đơn hàng</h3>
@@ -49,13 +49,12 @@
     {
         @Html.AntiForgeryToken()
 
-        <!-- Nút Xác nhận hủy -->
-        <button type="submit" class="btn btn-danger btn-lg">
+        <button type="submit" class="btn btn-secondary btn-lg">
             Xác nhận hủy
         </button>
 
-        <!-- Nút quay lại -->
-        <a href="@Url.Action("Index", "Home")" class="btn btn-secondary btn-lg">Quay lại</a>
+        <!-- Nút quay lại với màu đỏ -->
+        <a href="@Url.Action("Index", "Home")" class="btn btn-danger btn-lg">Quay lại</a>
     }
 </div>
 

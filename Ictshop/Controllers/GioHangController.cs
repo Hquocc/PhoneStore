@@ -162,25 +162,35 @@ namespace Ictshop.Controllers
         }
         #region // Mới hoàn thiện
         //Xây dựng chức năng đặt hàng
-        [HttpPost]
         public ActionResult DatHang(FormCollection donhangForm)
         {
-            //Kiểm tra đăng đăng nhập
+            // Kiểm tra đăng nhập
             if (Session["use"] == null || Session["use"].ToString() == "")
             {
                 return RedirectToAction("Dangnhap", "User");
             }
-            //Kiểm tra giỏ hàng
+
+            // Kiểm tra giỏ hàng
             if (Session["GioHang"] == null)
             {
-                RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
             }
-            Console.WriteLine(donhangForm);
+
+            // Lấy giá trị phương thức thanh toán từ form
+            string thanhtoan = donhangForm["MaTT"]?.ToString(); // Sử dụng toán tử null conditional (?.) để tránh null reference exception
+
+            // Kiểm tra nếu chưa chọn phương thức thanh toán
+            if (string.IsNullOrEmpty(thanhtoan))
+            {
+                TempData["ErrorMessage"] = "Vui lòng chọn phương thức thanh toán!";
+                return RedirectToAction("ThanhToanDonHang"); // Quay lại trang thanh toán
+            }
+
+            // Lấy các thông tin khác từ form
             string diachinhanhang = donhangForm["Diachinhanhang"].ToString();
-            string thanhtoan = donhangForm["MaTT"].ToString();
             int ptthanhtoan = Int32.Parse(thanhtoan);
 
-            //Thêm đơn hàng
+            // Thêm đơn hàng
             Donhang ddh = new Donhang();
             Nguoidung kh = (Nguoidung)Session["use"];
             List<GioHang> gh = LayGioHang();
@@ -189,6 +199,7 @@ namespace Ictshop.Controllers
             ddh.Thanhtoan = ptthanhtoan;
             ddh.Diachinhanhang = diachinhanhang;
             decimal tongtien = 0;
+
             foreach (var item in gh)
             {
                 decimal thanhtien = item.iSoLuong * (decimal)item.dDonGia;
@@ -197,7 +208,8 @@ namespace Ictshop.Controllers
             ddh.Tongtien = tongtien;
             db.Donhangs.Add(ddh);
             db.SaveChanges();
-            //Thêm chi tiết đơn hàng
+
+            // Thêm chi tiết đơn hàng
             foreach (var item in gh)
             {
                 Chitietdonhang ctDH = new Chitietdonhang();
@@ -211,8 +223,14 @@ namespace Ictshop.Controllers
                 db.Chitietdonhangs.Add(ctDH);
             }
             db.SaveChanges();
+
+            // Đặt thông báo thành công vào TempData
+            TempData["SuccessMessage"] = "Đặt hàng thành công! Cảm ơn bạn đã tin tưởng";
+
             return RedirectToAction("Index", "Donhangs");
         }
+
+
         #endregion
         public ActionResult ThanhToanDonHang()
         {
