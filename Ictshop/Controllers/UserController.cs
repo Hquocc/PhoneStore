@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -207,6 +208,64 @@ namespace Ictshop.Controllers
 
             TempData["Success"] = "Mật khẩu của bạn đã được khôi phục thành công.";
             return RedirectToAction("Dangnhap");
+        }
+        public ActionResult Profile(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Nguoidung nguoiDung = db.Nguoidungs.Find(id);
+            if (nguoiDung == null)
+            {
+                return HttpNotFound();
+            }
+            return View(nguoiDung);
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Nguoidung nguoidung = db.Nguoidungs.Find(id);
+            if (nguoidung == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.IDQuyen = new SelectList(db.PhanQuyens, "IDQuyen", "TenQuyen", nguoidung.IDQuyen);
+            return View(nguoidung);
+        }
+
+        // POST: Admin/Nguoidungs/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "MaNguoiDung,Hoten,Email,Dienthoai,Matkhau,IDQuyen, Anhdaidien,Diachi")] Nguoidung nguoidung)
+        {   
+            if (ModelState.IsValid)
+            {
+                db.Entry(nguoidung).State = EntityState.Modified;
+                db.SaveChanges();
+                //@ViewBag.show = "Chỉnh sửa hồ sơ thành công";
+                //return View(nguoidung);
+                return RedirectToAction("Profile", new { id = nguoidung.MaNguoiDung });
+
+            }
+            ViewBag.IDQuyen = new SelectList(db.PhanQuyens, "IDQuyen", "TenQuyen", nguoidung.IDQuyen);
+            return View(nguoidung);
+        }
+        public static byte[] encryptData(string data)
+        {
+            System.Security.Cryptography.MD5CryptoServiceProvider md5Hasher = new System.Security.Cryptography.MD5CryptoServiceProvider();
+            byte[] hashedBytes;
+            System.Text.UTF8Encoding encoder = new System.Text.UTF8Encoding();
+            hashedBytes = md5Hasher.ComputeHash(encoder.GetBytes(data));
+            return hashedBytes;
+        }
+        public static string md5(string data)
+        {
+            return BitConverter.ToString(encryptData(data)).Replace("-", "").ToLower();
         }
     }
 }
