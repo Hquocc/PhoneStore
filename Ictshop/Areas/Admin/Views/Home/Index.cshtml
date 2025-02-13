@@ -1,98 +1,90 @@
 ﻿@model PagedList.IPagedList<Ictshop.Models.Sanpham>
-
 @using PagedList.Mvc;
-
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Quản lý sản phẩm </h2>
+<h2>Quản lý sản phẩm</h2>
 
 <p>
-   @Html.ActionLink("Thêm mới sản phẩm", "Create", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Thêm mới sản phẩm", "Create", null, new { @class = "btn btn-primary" })
 </p>
+
 <table class="table table-bordered">
-    <tr>
+    <thead>
+        <tr>
+            <th>Tên sản phẩm</th>
+            <th>Giá tiền</th>
+            <th>Số lượng</th>
+            <th>Mô tả</th>
+            <th>Thẻ sim</th>
+            <th>Ảnh bìa</th>
+            <th>Tên hãng</th>
+            <th>Hệ điều hành</th>
+            <th style="width: 250px;">Hành động</th> 
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Tensp)</td>
+                <td>@String.Format("{0:0,0}", item.Giatien) VNĐ</td>
+                <td>@Html.DisplayFor(modelItem => item.Soluong)</td>
+                <td>
+                    @{
+                        var shortDesc = item.Mota.Length > 100 ? item.Mota.Substring(0, 100) + "..." : item.Mota;
+                    }
+                    @shortDesc
+                    @if (item.Mota.Length > 100)
+                    {
+                        <a href="#" data-toggle="modal" data-target="#descModal_@item.Masp">Xem thêm</a>
+                    }
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Thesim)</td>
+                <td>
+                    <img src="@Url.Content("~" + item.Anhbia)" width="50" height="50" alt="Ảnh sản phẩm" />
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Hangsanxuat.Tenhang)</td>
+                <td>@Html.DisplayFor(modelItem => item.Hedieuhanh.Tenhdh)</td>
+                <td>
+                    <div class="d-flex justify-content-center">
+                        <a href="@Url.Action("Edit", new { id = item.Masp })" class="btn btn-success mx-1">Sửa</a>
+                        <a href="@Url.Action("Details", new { id = item.Masp })" class="btn btn-primary mx-1">Chi tiết</a>
+                        <a href="@Url.Action("Delete", new { id = item.Masp })" class="btn btn-danger mx-1">Xóa</a>
+                    </div>
+                </td>
+            </tr>
 
-        <th>
-            Tên sản phẩm
-        </th>
-        <th>
-            Giá tiền
-        </th>
-        <th>
-            Số lượng
-        </th>
-        <th>
-            Mô tả
-        </th>
-        <th>
-            Thẻ sim
-        </th>
-        <th>
-            Ảnh bìa
-        </th>
-        <th>
-            Tên hãng
-        </th>
-        <th>
-            Hệ điều hành
-        </th>
-        <th> Hành động</th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-<tr>
-
-    <td>
-        @Html.DisplayFor(modelItem => item.Tensp)
-    </td>
-    <td>
-        @String.Format("{0:0,0}", item.Giatien) VNĐ
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Soluong)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Mota)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Thesim)
-    </td>
-    <td>
-        <img src="@Url.Content("~" +item.Anhbia)" width="50" height="50" />
-        @*@Html.DisplayFor(modelItem => item.Anhbia)*@
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Hangsanxuat.Tenhang)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Hedieuhanh.Tenhdh)
-    </td>
-    <td>
-        <button class="btn btn-success">
-            @Html.ActionLink("Sửa", "Edit", new { id = item.Masp }, new { @style = "color:white;" })
-        </button>
-        <button class="btn btn-primary">
-            @Html.ActionLink("Chi tiết", "Details", new { id = item.Masp }, new { @style = "color:white;" })
-        </button>
-        <button class="btn btn-danger">
-            @Html.ActionLink("Xóa", "Delete", new { id = item.Masp }, new { @style = "color:white;" })
-        </button>
-    </td>
-</tr>
-    }
-
+            <!-- Modal hiển thị mô tả đầy đủ -->
+            <div class="modal fade" id="descModal_@item.Masp" tabindex="-1" role="dialog" aria-labelledby="descLabel_@item.Masp" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="descLabel_@item.Masp">Mô tả sản phẩm</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            @item.Mota
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </tbody>
 </table>
-<!-- Thêm mã phân trang -->
+
+<!-- Phân trang -->
 <br />
+<p>Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</p>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 
-    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+<!-- Thêm CSS để điều chỉnh cột "Hành động" -->
 
-    @Html.PagedListPager(Model, page => Url.Action("Index",
-        new { page }))
-
-<!-- Kết thúc -->
