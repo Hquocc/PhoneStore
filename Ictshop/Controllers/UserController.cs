@@ -41,11 +41,10 @@ namespace Ictshop.Controllers
 
                     SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587)
                     {
-                        Credentials = new NetworkCredential("vietviprp2003@gmail.com", "euexrfrwgjunivzp"),
+                        Credentials = new NetworkCredential("vietviprp2003@gmail.com", "sssavhutjnvxdtux"),
                         EnableSsl = true
                     };
                     smtpClient.Send(mailMessage);
-
                     TempData["SuccessMessage"] = "Đăng ký thành công. Vui lòng kiểm tra email để xác minh tài khoản.";
                     return RedirectToAction("Dangnhap");
                 }
@@ -163,7 +162,7 @@ namespace Ictshop.Controllers
             mailMessage.IsBodyHtml = true;
 
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
-            smtpClient.Credentials = new NetworkCredential("vietviprp2003@gmail.com", "euexrfrwgjunivzp");
+            smtpClient.Credentials = new NetworkCredential("vietviprp2003@gmail.com", "sssavhutjnvxdtux");
             smtpClient.EnableSsl = true;
             smtpClient.Send(mailMessage);
 
