@@ -13,7 +13,6 @@
         <dt class="profile-label">
             Ảnh đại diện
         </dt>
-
         <dd class="profile-info">
             <img src="@Url.Content("~/HinhanhSP/" + Model.Anhdaidien)" class="img-responsive profile-image" alt="" />
         </dd>
@@ -21,7 +20,6 @@
         <dt class="profile-label">
             @Html.DisplayNameFor(model => model.Hoten)
         </dt>
-
         <dd class="profile-info">
             @Html.DisplayFor(model => model.Hoten)
         </dd>
@@ -29,7 +27,6 @@
         <dt class="profile-label">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-
         <dd class="profile-info">
             @Html.DisplayFor(model => model.Email)
         </dd>
@@ -37,7 +34,6 @@
         <dt class="profile-label">
             @Html.DisplayNameFor(model => model.Dienthoai)
         </dt>
-
         <dd class="profile-info">
             @Html.DisplayFor(model => model.Dienthoai)
         </dd>
@@ -45,15 +41,16 @@
         <dt class="profile-label">
             @Html.DisplayNameFor(model => model.Matkhau)
         </dt>
-
-        <dd class="profile-info">
-            @Html.DisplayFor(model => model.Matkhau)
+        <dd class="profile-info password-container">
+            <input type="password" id="passwordField" value="@Model.Matkhau" readonly />
+            <span id="togglePassword" class="toggle-password">
+                <i class="fa fa-eye"></i>
+            </span>
         </dd>
 
         <dt class="profile-label">
             @Html.DisplayNameFor(model => model.Diachi)
         </dt>
-
         <dd class="profile-info">
             @Html.DisplayFor(model => model.Diachi)
         </dd>
@@ -106,6 +103,24 @@
         border: 2px solid #ccc;
     }
 
+    .password-container {
+        display: flex;
+        align-items: center;
+    }
+
+        .password-container input {
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            width: 100%;
+        }
+
+    .toggle-password {
+        cursor: pointer;
+        margin-left: 10px;
+        font-size: 18px;
+    }
+
     .action-buttons {
         text-align: center;
         margin-top: 20px;
@@ -125,3 +140,20 @@
             transition: background-color 0.3s ease;
         }
 </style>
+
+<script>
+    document.getElementById("togglePassword").addEventListener("click", function () {
+        var passwordField = document.getElementById("passwordField");
+        var icon = this.querySelector("i");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            passwordField.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    });
+</script>

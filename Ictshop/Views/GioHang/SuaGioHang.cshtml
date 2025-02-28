@@ -16,7 +16,7 @@
             <th> Đơn giá</th>
             <th> Số lượng</th>
             <th> Thành tiền</th>
-            <th> Thao tác</th>
+            <th style="width: 250px"> Thao tác</th>
         </tr>
     </thead>
     <tbody>
@@ -33,11 +33,10 @@
                     <td>@Html.TextBox("txtSoLuong", item.iSoLuong, new { style = "width: 50px;" })</td>
                     <td>@String.Format("{0:0,0}", item.ThanhTien) VNĐ</td>
                     <td>
-                        <input type="submit" value="Cập nhật" class="btn-secondary" style="padding: 5px 10px;" />
-                        <br />
-                        <button type="button" class="btn-danger">
-                            @Html.ActionLink("Xóa", "XoaGioHang", new { @iMaSP = item.iMasp }, new { @class = "text-white" })
-                        </button>
+                        <div class="btn-group">
+                            <input type="submit" value="Cập nhật" class="btn-secondary" />
+                            @Html.ActionLink("Xóa", "XoaGioHang", new { @iMaSP = item.iMasp }, new { @class = "btn-danger text-white" })
+                        </div>
                     </td>
                 }
             </tr>
@@ -50,10 +49,11 @@
         border: 2px solid #EEEEEE;
         font-size: large;
         margin-bottom: 200px;
-        background-color: white; /* White background */
-        border-radius: 10px; /* Rounded corners */
-        width: 100%; /* Full width */
+        background-color: white;
+        border-radius: 10px;
+        width: 100%;
     }
+
     .giohang-title {
         font-weight: bold;
         font-size: 24px;
@@ -62,32 +62,42 @@
         margin-bottom: 20px;
     }
 
-        .divGioHang td, .divGioHang th {
-            padding: 15px;
-            border: 2px solid #EEEEEE;
-            text-align: center;
-        }
+    .divGioHang td, .divGioHang th {
+        padding: 15px;
+        border: 2px solid #EEEEEE;
+        text-align: center;
+    }
 
-        .divGioHang th {
-            background-color: #f5f5f5;
-            font-weight: bold;
-        }
+    .divGioHang th {
+        background-color: #f5f5f5;
+        font-weight: bold;
+    }
 
-        .divGioHang tbody tr:hover {
-            background-color: #f9f9f9;
-        }
+    .divGioHang tbody tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    /* Căn hàng ngang cho nút */
+    .btn-group {
+        display: flex;
+        gap: 10px; /* Khoảng cách giữa nút */
+        align-items: center;
+        justify-content: center;
+    }
 
     .btn-secondary, .btn-danger {
         padding: 8px 12px;
         border-radius: 5px;
         cursor: pointer;
         border: none;
+        text-align: center;
+        white-space: nowrap; /* Đảm bảo nút không bị xuống dòng */
     }
 
     .btn-secondary {
         background-color: #f7c97c;
         color: white;
-        transition: all 0.3s ease;  
+        transition: all 0.3s ease;
     }
 
         .btn-secondary:hover {
@@ -99,6 +109,9 @@
         background-color: #f5a9a9;
         color: white;
         transition: all 0.3s ease;
+        text-decoration: none; /* Loại bỏ gạch chân */
+        display: inline-block;
+        padding: 8px 12px;
     }
 
         .btn-danger:hover {
@@ -106,9 +119,14 @@
             transform: scale(1.05);
         }
 
-    /* Remove underline on hover for ActionLink */
-    .text-white:hover {
+    /* Đảm bảo chữ trắng trên nút Xóa */
+    .text-white {
+        color: white;
         text-decoration: none;
-        color: white; /* Ensure the color remains white when hovered */
     }
+
+        .text-white:hover {
+            text-decoration: none;
+            color: white;
+        }
 </style>

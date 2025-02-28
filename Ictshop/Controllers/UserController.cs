@@ -46,6 +46,7 @@ namespace Ictshop.Controllers
                     };
                     smtpClient.Send(mailMessage);
                     TempData["SuccessMessage"] = "Đăng ký thành công. Vui lòng kiểm tra email để xác minh tài khoản.";
+                    TempData.Keep("SuccessMessage");
                     return RedirectToAction("Dangnhap");
                 }
                 catch (Exception ex)

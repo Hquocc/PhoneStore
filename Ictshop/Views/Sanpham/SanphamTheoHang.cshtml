@@ -1,32 +1,122 @@
-﻿@{
-    ViewBag.Title = "SanphamTheoHang";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@model List<Ictshop.Models.Sanpham>
+@{
+    ViewBag.Title = "Sản phẩm";
 }
-@model IEnumerable<Ictshop.Models.Sanpham>
 
-<h2 style="font-weight:bold">Sản phẩm của hãng @ViewBag.TenHang</h2>
-<div class="row">
+<h2 style="font-weight:bold">@ViewBag.TenHang</h2>
+
+<form action="@Url.Action("SanphamTheoHang", "Sanpham")" method="get">
+    <input type="hidden" name="Mahang" value="@ViewBag.Mahang" />
+
+    <div class="filter-bar d-flex justify-content-between align-items-center">
+        <div class="filter-item">
+            <button type="button" class="btn btn-primary" onclick="showFilterDialog()">Chọn Bộ Lọc</button>
+        </div>
+     
+    </div>
+
+    <!-- Modal Bộ Lọc -->
+    <div class="modal" id="filterModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Chọn Bộ Lọc</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Giá tiền:</label>
+                        <input type="range" class="form-control-range range-red" name="minGia" min="1000000" max="50000000" step="1000000"
+                               value="1000000" oninput="updateRange(this)" id="giaTien">
+                        <output style="margin-left: 100px; font-weight: bold;">1.000.000 VNĐ</output>
+                    </div>
+
+                    <div class="form-group">
+                        <label>RAM:</label>
+                        <select name="RAM" class="form-control">
+                            <option value="">Tất cả</option>
+                            <option value="4GB">4GB</option>
+                            <option value="8GB">8GB</option>
+                            <option value="16GB">16GB</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>ROM:</label>
+                        <select name="ROM" class="form-control">
+                            <option value="">Tất cả</option>
+                            <option value="64GB">64GB</option>
+                            <option value="128GB">128GB</option>
+                            <option value="256GB">256GB</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Áp dụng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="product-list row">
     @foreach (var item in Model)
     {
-        <div class="col-md-3 col-sm-6">
-            <div class="formsp">
-                <p class="tg">
-                    Trả góp 0%
-                </p>
-                <a href="@Url.Action("xemchitiet", new {@Masp=item.Masp })">
-                    <img src="@Url.Content("~" + item.Anhbia)" class="imgs-ip" alt="" />
+        <div class="product-item col-md-3 col-sm-6">
+            <div class="card">
+                <a href="@Url.Action("xemchitiet", new { @Masp = item.Masp })">
+                    <img src="@Url.Content("~" + item.Anhbia)" class="card__image" alt="@item.Tensp" />
                 </a>
-                <p>
-                    <h5 class="Ten-ip">  @item.Tensp </h5>
-                <p class="Mn"> @(item.Giatien?.ToString("N0") ?? "0") VNĐ</p>
-                <br />
+                <p class="card__name">@item.Tensp</p>
+                <p class="card__price">@String.Format("{0:N0} VNĐ", item.Giatien)</p>
             </div>
         </div>
     }
 </div>
 
+@if (ViewBag.ThongBao != null)
+{
+    <div class="alert alert-warning text-center">@ViewBag.ThongBao</div>
+}
+
+<script>
+    function showFilterDialog() {
+        $('#filterModal').modal('show');
+    }
+</script>
+
 <style>
-    .formsp {
+    .range-red {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 10px;
+        border-radius: 5px;
+        outline: none;
+        background: #ddd; 
+        transition: background 0.3s ease;
+    }
+
+        .range-red::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: red; /* Màu nút trượt */
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .range-red::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: red;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+
+    .card {
         height: 380px;
         margin-top: 20px;
         background-color: #ffffff;
@@ -36,55 +126,50 @@
         flex-direction: column;
         justify-content: space-between;
         padding: 10px;
-        position: relative;
-        overflow: hidden;
         transition: transform 0.3s ease-in-out;
     }
 
-        .formsp:hover {
-            transform: scale(1.05); /* Phóng to khi hover */
+        .card:hover {
+            transform: scale(1.05);
         }
 
-    .Mn {
+    .card__price {
         color: red;
         font-weight: bold;
-        font-size: 15px;
         text-align: center;
-        margin-top: auto;
     }
 
-    .Ten-ip {
+    .card__name {
         font-weight: bold;
-        text-align: left;
-        height: 40px;
+        text-align: center;
+        height: 60px;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
-    .imgs-ip {
+    .card__image {
         margin: 0 auto;
         display: block;
         width: 200px;
         height: 220px;
         padding-top: 20px;
-        transition: transform 0.3s ease-in-out; /* Thêm hiệu ứng cho hình ảnh */
-    }
-
-     
-
-    .tg {
-        background-color: rgb(255, 255, 255);
-        border-radius: 5px;
-        border: 1px solid rgb(12, 83, 183);
-        font-family: Roboto, sans-serif;
-        font-size: 12px;
-        font-weight: 500;
-        color: rgb(12, 83, 183);
-        padding: 5px;
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        display: inline-block;
-        text-align: center;
     }
 </style>
+<script>
+    window.onload = function () {
+        let range = document.getElementById("giaTien");
+        updateRange(range); 
+    };
+
+    function updateRange(input) {
+        let value = input.value;
+        let min = input.min;
+        let max = input.max;
+        let percent = ((value - min) / (max - min)) * 100;
+
+        input.style.background = `linear-gradient(to right, red ${percent}%, #ddd ${percent}%)`;
+        input.nextElementSibling.value = new Intl.NumberFormat().format(value) + " VNĐ";
+    }
+
+
+</script>

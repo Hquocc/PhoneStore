@@ -1,107 +1,37 @@
 ﻿@model Ictshop.Models.Sanpham
 
-@{ ViewBag.Title = "Details";
-                Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml"; }
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
 
-<h2>Thông tin chi tiết</h2>
 
-<div>
-    <h4>Sản phẩm</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Hangsanxuat.Tenhang)
-        </dt>
+<div class="container mt-5">
+    <div class="row align-items-center">
+        <!-- Hiển thị ảnh sản phẩm -->
+        <div class="col-md-5 text-center">
+            <img src="@Url.Content(Model.Anhbia)" alt="@Model.Tensp" style="max-height: 350px;">
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Hangsanxuat.Tenhang)
-        </dd>
+        <!-- Hiển thị thông tin sản phẩm -->
+        <div class="col-md-7">
+            <h2 class=" fw-bold">@Model.Tensp</h2>
+            <p class="text-muted ">@Model.Mota</p>
+            <hr />
+            <ul class="list-unstyled">
+                <li><strong>Hãng sản xuất:</strong> @Model.Hangsanxuat.Tenhang</li>
+                <li><strong>Hệ điều hành:</strong> @Model.Hedieuhanh.Tenhdh</li>
+                <li><strong>Giá tiền:</strong> <span class="text-danger fw-bold">@String.Format("{0:N0} VND", Model.Giatien)</span></li>
+                <li><strong>Số lượng:</strong> @Model.Soluong</li>
+                <li><strong>Thẻ SIM:</strong> @Model.Thesim</li>
+                <li><strong>Bộ nhớ trong:</strong> @Model.Bonhotrong GB</li>
+                <li><strong>RAM:</strong> @Model.Ram GB</li>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Hedieuhanh.Tenhdh)
-        </dt>
+            </ul>
 
-        <dd>
-            @Html.DisplayFor(model => model.Hedieuhanh.Tenhdh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Tensp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Tensp)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Giatien)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Giatien)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Soluong)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Soluong)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Mota)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Mota)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Thesim)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Thesim)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Bonhotrong)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Bonhotrong)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Sanphammoi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Sanphammoi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Ram)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Ram)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Anhbia)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Anhbia)
-        </dd>
-
-    </dl>
+            <div class="mt-4 d-flex gap-3">
+                <a href="@Url.Action("Index")" class="btn btn-warning">Quay lại danh sách</a>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    <button class="btn btn-success">
-        @Html.ActionLink("Sửa sản phẩm", "Edit", new { id = Model.Masp }, new { @style = "color:white;" }) 
-    </button>
-</p>
-

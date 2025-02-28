@@ -14,10 +14,10 @@ namespace Ictshop.Controllers
         // GET: Sanpham
         public ActionResult dtiphonepartial()
         {
-            var ip = db.Sanphams.Where(n=>n.Mahang==2).Take(8).ToList();
-           return PartialView(ip);
+            var ip = db.Sanphams.Where(n => n.Mahang == 2).Take(8).ToList();
+            return PartialView(ip);
         }
-     
+
         public ActionResult dtsamsungpartial()
         {
             var ss = db.Sanphams.Where(n => n.Mahang == 1).Take(12).ToList();
@@ -28,9 +28,9 @@ namespace Ictshop.Controllers
             var mi = db.Sanphams.Where(n => n.Mahang == 3).Take(12).ToList();
             return PartialView(mi);
         }
-        public ActionResult xemchitiet(int Masp=0)
+        public ActionResult xemchitiet(int Masp = 0)
         {
-            var chitiet = db.Sanphams.SingleOrDefault(n=>n.Masp==Masp);
+            var chitiet = db.Sanphams.SingleOrDefault(n => n.Masp == Masp);
             if (chitiet == null)
             {
                 Response.StatusCode = 404;
@@ -51,17 +51,48 @@ namespace Ictshop.Controllers
 
             return PartialView(products);
         }
-        public ActionResult SanphamTheoHang(int Mahang = 0)
+
+        public ActionResult SanphamTheoHang(int Mahang, decimal? minGia = null, decimal? maxGia = null, int? Ram = null, int? Bonhotrong = null)
         {
-            var sanpham = db.Sanphams.Where(sp => sp.Mahang == Mahang).ToList();
-            if (sanpham == null || sanpham.Count == 0)
+            ViewBag.Mahang = Mahang;
+            var sanpham = db.Sanphams.Where(sp => sp.Mahang == Mahang);
+
+            if (minGia.HasValue)
             {
-                Response.StatusCode = 404;
-                return null;
+                sanpham = sanpham.Where(sp => sp.Giatien >= minGia);
             }
+            if (maxGia.HasValue)
+            {
+                sanpham = sanpham.Where(sp => sp.Giatien <= maxGia);
+            }
+            if (Ram.HasValue)
+            {
+                sanpham = sanpham.Where(sp => sp.Ram == Ram);
+            }
+            if (Bonhotrong.HasValue)
+            {
+                sanpham = sanpham.Where(sp => sp.Bonhotrong == Bonhotrong);
+            }
+
+            var sanphams = sanpham.ToList();
+
+            if (sanphams.Count == 0)
+            {
+                ViewBag.ThongBao = "Không tìm thấy sản phẩm nào!";
+            }
+
             ViewBag.TenHang = db.Hangsanxuats.SingleOrDefault(h => h.Mahang == Mahang)?.Tenhang;
-            return View(sanpham);
+
+            return View(sanphams);
         }
+
+
+
+
+
+
+
+
 
 
     }

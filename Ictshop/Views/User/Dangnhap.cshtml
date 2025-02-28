@@ -24,6 +24,19 @@
         @TempData["Success"]
     </div>
 }
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+@if (TempData.Peek("SuccessMessage") != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
 
 <div class="login-container">
     <h2 style="color:red; font-weight: bold;">Đăng nhập tài khoản của bạn</h2>
@@ -49,10 +62,10 @@
         </div>
     }
 
-<div class="registration-link">
-    <p style="font-size:13px">Chưa có tài khoản? <a href="/User/Dangky" class="btn-register">Đăng ký ngay</a></p>
-    <p style="font-size:13px"><a href="/User/QuenMatKhau" class="btn-register">Quên mật khẩu?</a></p>
-</div>
+    <div class="registration-link">
+        <p style="font-size:13px">Chưa có tài khoản? <a href="/User/Dangky" class="btn-register">Đăng ký ngay</a></p>
+        <p style="font-size:13px"><a href="/User/QuenMatKhau" class="btn-register">Quên mật khẩu?</a></p>
+    </div>
 </div>
 
 <style>
@@ -68,7 +81,6 @@
 
         .login-container h2 {
             text-align: center;
-            
             color: #333;
             margin-bottom: 30px;
         }

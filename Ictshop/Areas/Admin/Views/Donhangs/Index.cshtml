@@ -26,7 +26,7 @@
             <th>Địa chỉ nhận hàng</th>
             <th>Tình trạng</th>
             <th>Cập nhật đơn hàng</th>
-            <th>Hành động</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -58,12 +58,12 @@
                     <form action="@Url.Action("UpdateTinhTrang", "Donhangs")" method="post" style="display: inline;">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="id" value="@item.Madon" />
-                        <button type="submit" name="tinhTrang" value="1" class="btn btn-info btn-sm">Xác nhận</button>
-                        <button type="submit" name="tinhTrang" value="2" class="btn btn-success btn-sm">Đã giao</button>
-                        <button type="submit" name="tinhTrang" value="3" class="btn btn-primary btn-sm">Hoàn thành</button>
+                        <button type="submit" name="tinhTrang" value="1" class="btn btn-info btn-sm" @(item.Tinhtrang >= 1 ? "disabled" : "")>Xác nhận</button>
+                        <button type="submit" name="tinhTrang" value="2" class="btn btn-success btn-sm" @(item.Tinhtrang >= 2 ? "disabled" : "")>Đã giao</button>
+                        <button type="submit" name="tinhTrang" value="3" class="btn btn-primary btn-sm" @(item.Tinhtrang >= 3 ? "disabled" : "")>Hoàn thành</button>
                     </form>
-                
                 </td>
+
                 <td>
                     @Html.ActionLink("Chi tiết", "Details", new { id = item.Madon }, new { @class = "btn btn-warning btn-sm" })
                 </td>
