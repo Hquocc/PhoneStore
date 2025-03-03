@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -72,6 +73,10 @@ namespace Ictshop.Areas.Admin.Controllers
             ViewBag.Mahdh = new SelectList(db.Hedieuhanhs, "Mahdh", "Tenhdh", sanpham.Mahdh);
             return View(sanpham);
         }
+
+
+
+
 
 
         // Sửa sản phẩm GET lấy ra ID sản phẩm: Admin/Home/Edit/5
