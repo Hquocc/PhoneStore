@@ -114,14 +114,19 @@
         </div>
     </div>
 </div>}
-<script>
-    $(document).ready(function () {
+<script language="javascrip" type="text/javascript">
+    $(function () {
         $("#chonDuongDanAnh").click(function () {
-            $("#fileInput").click();
-        });
-        $("#fileInput").change(function () {
-            var fileName = $(this).val().split("\\").pop(); 
-            $("#Anhbia").val(fileName); 
-        });
+            var ckfiner = new CKFinder();
+            ckfiner.selectActionFunction = function (fileUrl) {
+                $("#Anhbia").val(fileUrl);
+            };
+            ckfiner.popup();
+        })
     });
+    var ckeditor;
+    function createEditor(languageCode, id) {
+        var editor = CKEDITOR.replace(id, { language: languageCode });
+    }
+    $(function () { createEditor('vi', 'Mo') });
 </script>
